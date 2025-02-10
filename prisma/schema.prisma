@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  uuid      String     @id
+  name      String
+  email     String     @unique
+  password  String
+  dateBirth DateTime
+  status    UserStatus @default(ENABLE)
+
+  createdAt DateTime
+  updatedAt DateTime
+
+  AssignedEventToUsers AssignedEventToUsers[]
+  Tag                  Tag[]
+  Habit                Habit[]
+}
+
+enum UserStatus {
+  ENABLE
+  DISABLE
+}
+
+model AssignedEventToUsers {
+  uuid      String @id @default(uuid())
+  userUuid  String
+  eventUuid String
+
+  createdAt DateTime
+  updatedAt DateTime
+
+  user  User  @relation(fields: [userUuid], references: [uuid])
+  event Event @relation(fields: [eventUuid], references: [uuid])
+}
+
+model Event {
+  uuid     String    @id
+  name     String
+  allDay   Boolean   @default(false)
+  startsOf DateTime?
+  endsOf   DateTime?
+  tagUuid  String?
+
+  createdAt DateTime
+  updatedAt DateTime
+
+  Tag Tag? @relation(fields: [tagUuid], references: [uuid])
+
+  AssignedEventToUsers AssignedEventToUsers[]
+}
+
+model Tag {
+  uuid     String @id @default(uuid())
+  name     String
+  color    String
+  userUuid String
+
+  events Event[]
+  user   User    @relation(fields: [userUuid], references: [uuid])
+}
+
+model Habit {
+  uuid     String @id @default(uuid())
+  name     String
+  color    String
+  userUuid String
+
+  createdAt DateTime
+  updatedAt DateTime
+
+  DaysInWeekHabit dayHabit[]
+  HabitWeekDays   HabitWeekDays[]
+
+  user User @relation(fields: [userUuid], references: [uuid])
+}
+
+model HabitWeekDays {
+  uuid      String @id @default(uuid())
+  weekDay   Int
+  habitUuid String
+
+  habit Habit @relation(fields: [habitUuid], references: [uuid])
+
+  @@unique([habitUuid, weekDay])
+}
+
+model dayHabit {
+  uuid           String @id @default(uuid())
+  habitUuid      String
+  daysInWeekUuid String
+
+  habit      Habit @relation(fields: [habitUuid], references: [uuid])
+  daysInWeek Day   @relation(fields: [daysInWeekUuid], references: [uuid])
+
+  @@unique([habitUuid, daysInWeekUuid])
+}
+
+model Day {
+  uuid            String     @id @default(uuid())
+  id              Int
+  day             String
+  DaysInWeekHabit dayHabit[]
+}
