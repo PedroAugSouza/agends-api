@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { User } from './user.entity';
 import { getUserDummy } from '__test__dummy/mock/mock.entities';
 
-describe('User entity: ', () => {
+describe('Create user entity: ', () => {
   const mockUser = getUserDummy();
 
   it(`should be able to a create a new user`, () => {
