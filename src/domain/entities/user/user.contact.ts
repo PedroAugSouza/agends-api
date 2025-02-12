@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { UserStatusValueObject } from 'src/domain/value-objects/user-status.value-object';
+import { EntityProps } from '../props';
 
-export class UserProps {
+export class UserProps extends EntityProps {
   @ApiProperty()
   name: string;
 

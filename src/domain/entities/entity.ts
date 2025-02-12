@@ -1,16 +1,14 @@
 import { randomUUID } from 'crypto';
 import { EntityProps } from './props';
-import { ApiProperty } from '@nestjs/swagger';
 import { Either } from 'src/infra/utils/either/either';
 import { ParamInvalidError } from '../errors/shared/param-invalid.error';
 
 export abstract class Entity<T extends EntityProps> {
-  @ApiProperty()
   protected uuid: string;
 
   protected props: T = {} as T;
 
-  public value: Either<ParamInvalidError, T>;
+  public result: Either<ParamInvalidError, T & EntityProps>;
 
   protected create(props: T, uuid?: string) {
     Object.assign(this.props, props);
@@ -22,7 +20,7 @@ export abstract class Entity<T extends EntityProps> {
     this.uuid = uuid;
   }
 
-  protected toValue() {
+  protected toValue(): T {
     return {
       ...this.props,
       uuid: this.uuid,
