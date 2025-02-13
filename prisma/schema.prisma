@@ -75,20 +75,9 @@ model Habit {
   createdAt DateTime
   updatedAt DateTime
 
-  DaysInWeekHabit dayHabit[]
-  HabitWeekDays   HabitWeekDays[]
+  dayHabit dayHabit[]
 
   user User @relation(fields: [userUuid], references: [uuid])
-}
-
-model HabitWeekDays {
-  uuid      String @id @default(uuid())
-  weekDay   Int
-  habitUuid String
-
-  habit Habit @relation(fields: [habitUuid], references: [uuid])
-
-  @@unique([habitUuid, weekDay])
 }
 
 model dayHabit {

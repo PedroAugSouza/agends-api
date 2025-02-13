@@ -1,5 +1,7 @@
 import { EventProps } from 'src/domain/entities/event/event.contact';
 import { Event } from 'src/domain/entities/event/event.entity';
+import { HabitProps } from 'src/domain/entities/habit/habit.contact';
+import { Habit } from 'src/domain/entities/habit/habit.entity';
 import { TagProps } from 'src/domain/entities/tag/tag.contact';
 import { Tag } from 'src/domain/entities/tag/tag.entity';
 import { UserProps } from 'src/domain/entities/user/user.contact';
@@ -43,4 +45,15 @@ export const getTagDummy = () => {
     color: '#10b981',
   });
   return tag.result.value as TagProps;
+};
+
+export const getHabitDummy = () => {
+  const habit = new Habit({
+    name: 'test',
+    color: '#10b981',
+    dayHabit: [0, 1, 2],
+    userUuid: getUserDummy().uuid,
+  });
+
+  return habit.result.value as HabitProps;
 };
