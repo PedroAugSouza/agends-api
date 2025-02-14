@@ -1,26 +1,28 @@
-import { ApiProperty } from "@nestjs/swagger";
-import { EntityProps } from "../props";
+import { ApiProperty } from '@nestjs/swagger';
+import { EntityProps } from '../props';
 
 export class EventProps extends EntityProps {
-
   @ApiProperty()
-  name: string
+  name: string;
 
   @ApiProperty({ default: false })
-  allDay: boolean = false
+  allDay: boolean = false;
 
   @ApiProperty()
-  startsOf?: Date
+  date: Date;
 
   @ApiProperty()
-  endsOf?: Date
+  startsOf?: Date;
 
   @ApiProperty()
-  tagUuid: string
+  endsOf?: Date;
 
   @ApiProperty()
-  createdAt: Date
+  tagUuid: string;
 
   @ApiProperty()
-  updatedAt: Date
+  createdAt: Date;
+
+  @ApiProperty()
+  updatedAt: Date;
 }
