@@ -43,6 +43,7 @@ model AssignedEventToUsers {
 model Event {
   uuid     String    @id
   name     String
+  date     DateTime
   allDay   Boolean   @default(false)
   startsOf DateTime?
   endsOf   DateTime?
