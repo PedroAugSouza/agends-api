@@ -1,10 +1,9 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { Either } from 'src/infra/utils/either/either';
 
-@ApiSchema({ name: 'Input Create Tag' })
-export class InputCrateTagsDTO {
+@ApiSchema({ name: 'Input Create Habit' })
+export class InputCreateHabitDTO {
   @ApiProperty()
   name: string;
 
@@ -13,9 +12,12 @@ export class InputCrateTagsDTO {
 
   @ApiProperty()
   userUuid: string;
+
+  @ApiProperty()
+  dayHabit: number[];
 }
 
-export type OutputCreateTagsDTO = Either<
+export type OutputCreateHabitDTO = Either<
   MissingParamError | UnexpectedError,
   void
 >;
