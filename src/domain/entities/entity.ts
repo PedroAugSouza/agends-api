@@ -8,7 +8,7 @@ export abstract class Entity<T extends EntityProps> {
 
   protected props: T = {} as T;
 
-  public result: Either<ParamInvalidError, T & EntityProps>;
+  public result: Either<ParamInvalidError, T>;
 
   protected create(props: T, uuid?: string) {
     Object.assign(this.props, props);
