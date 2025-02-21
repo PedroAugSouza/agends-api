@@ -57,6 +57,7 @@ describe('Create Tag Use Case: ', () => {
 
     expect(result.isRight()).toBeFalsy();
   });
+
   it(`shouldn't be able to create a new tag if the param userUuid is missing`, async () => {
     const result = await createTagsUseCase.execute({
       color: mockTag.color,
@@ -66,6 +67,7 @@ describe('Create Tag Use Case: ', () => {
 
     expect(result.isRight()).toBeFalsy();
   });
+  
   it(`shouldn't be able to create a new tag if user not exist`, async () => {
     const result = await createTagsUseCase.execute({
       color: mockTag.color,
