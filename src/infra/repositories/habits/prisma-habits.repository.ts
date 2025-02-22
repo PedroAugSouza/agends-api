@@ -63,4 +63,10 @@ export class PrismaHabitsRepository implements IHabitRepository {
       },
     });
   }
+  async findByUuid(uuid: string): Promise<null | HabitProps> {
+    const habit = await this.prisma.habit.findFirst({
+      where: { uuid },
+    });
+    return habit ?? null;
+  }
 }

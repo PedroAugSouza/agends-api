@@ -12,4 +12,11 @@ export class InMemoryTagsRepository implements ITagRepository {
   remove(uuid: string): void {
     this.tags.delete(uuid);
   }
+  findByUuid(uuid: string): null | TagProps {
+    const tag = Array.from(this.tags.values()).filter(
+      (tag) => tag.uuid === uuid,
+    )[0];
+
+    return tag;
+  }
 }

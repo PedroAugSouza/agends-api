@@ -15,4 +15,11 @@ export class InMemoryHabitsRepository implements IHabitRepository {
   remove(uuid: string): void {
     this.habits.delete(uuid);
   }
+  findByUuid(uuid: string): null | HabitProps {
+    const habit = Array.from(this.habits.values()).filter(
+      (habit) => habit.uuid === uuid,
+    )[0];
+
+    return habit;
+  }
 }

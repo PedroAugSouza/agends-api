@@ -12,5 +12,5 @@ export class HabitProps extends EntityProps {
   userUuid: string;
 
   @ApiProperty()
-  dayHabit: number[];
+  dayHabit?: number[];
 }

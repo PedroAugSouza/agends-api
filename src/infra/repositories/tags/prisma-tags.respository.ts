@@ -24,4 +24,11 @@ export class PrismaTagsRepository implements ITagRepository {
       },
     });
   }
+  async findByUuid(uuid: string): Promise<null | TagProps> {
+    const tag = await this.prisma.tag.findFirst({
+      where: { uuid },
+    });
+
+    return tag ?? null;
+  }
 }
