@@ -4,16 +4,19 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RemoveTagsUseCase } from './remove-tags.use-case';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { IError } from 'src/infra/error/error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('tag')
 @ApiBearerAuth()
 @ApiTags('Remove Tags Controller')
+@UseGuards(AuthGuard)
 export class RemoveTagsController {
   constructor(private readonly removeTagUseCase: RemoveTagsUseCase) {}
 

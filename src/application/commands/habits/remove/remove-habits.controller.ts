@@ -4,16 +4,19 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
 import { RemoveHabitsUseCase } from './remove-habits.use-case';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('habit')
 @ApiTags('Remove Habit Controller')
 @ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class RemoveHabitsController {
   constructor(private readonly removeHabitsUseCase: RemoveHabitsUseCase) {}
 

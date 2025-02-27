@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateTagsUseCase } from './create-tags.use-case';
@@ -13,10 +14,12 @@ import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
 import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
 import { IError } from 'src/infra/error/error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('tag')
 @ApiBearerAuth()
 @ApiTags('Create Tag Controller')
+@UseGuards(AuthGuard)
 export class CreateTagsController {
   constructor(private readonly createTagUseCase: CreateTagsUseCase) {}
 

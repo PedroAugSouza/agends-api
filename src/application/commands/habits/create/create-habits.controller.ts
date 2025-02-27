@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Post,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { CreateHabitsUseCase } from './create-habits.use-case';
@@ -13,10 +14,12 @@ import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error'
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
 import { IError } from 'src/infra/error/error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('habit')
 @ApiTags('Create Habit Controller')
 @ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class CreateHabitController {
   constructor(private readonly createHabitsUseCase: CreateHabitsUseCase) {}
 

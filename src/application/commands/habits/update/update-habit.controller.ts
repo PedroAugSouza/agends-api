@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { InputUpdateHabitDTO } from 'src/domain/dtos/habits/update-habit.dto';
 import { UpdateHabitsUseCase } from './update-habits.use-case';
@@ -11,10 +12,12 @@ import { MissingParamError } from 'src/domain/errors/shared/missing-param.error'
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('habit')
 @ApiTags('Update Habit Controller')
 @ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class UpdateHabitController {
   constructor(private readonly updateHabitsUseCase: UpdateHabitsUseCase) {}
 
