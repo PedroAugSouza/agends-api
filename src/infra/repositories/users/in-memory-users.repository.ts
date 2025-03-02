@@ -17,14 +17,16 @@ export class InMemoryUsersRepository implements IUserRepository {
       (user) => user.email === email,
     )[0];
 
-    return user ?? null;
+    if (user) return user;
+    return null;
   }
   findByUuid(uuid: string): UserProps | null {
     const user = Array.from(this.users.values()).filter(
       (user) => user.uuid === uuid,
     )[0];
 
-    return user ?? null;
+    if (user) return user;
+    return null;
   }
   remove(uuid: string): void {
     this.users.delete(uuid);

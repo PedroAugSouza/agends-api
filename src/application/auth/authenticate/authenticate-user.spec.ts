@@ -36,7 +36,11 @@ describe('authenticate user', () => {
 
     usersRepository = module.get<IUserRepository>(DiRepository.USERS);
 
-    usersRepository.save(getUserDummy());
+    usersRepository.save({
+      ...getUserDummy(),
+      email: 'user@email.com',
+      password: 'password-correct',
+    });
   });
 
   it(`should be able to a authenticate a user`, async () => {
@@ -44,6 +48,8 @@ describe('authenticate user', () => {
       email: 'user@email.com',
       password: 'password-correct',
     });
+
+    console.log(result.value);
 
     expect(result.isRight()).toBeTruthy();
     expect(result.value).toBeTypeOf('object');

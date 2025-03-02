@@ -3,6 +3,7 @@ import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
+import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
 import { Either } from 'src/infra/utils/either/either';
 
 @ApiSchema({ name: 'Input Create Event' })
@@ -24,9 +25,16 @@ export class InputCreateEventDTO {
 
   @ApiProperty()
   tagUuid: string;
+
+  @ApiProperty()
+  userUuid: string;
 }
 
 export type OutputCreateEventDTO = Either<
-  MissingParamError | UnexpectedError | InvalidTimeError | ParamInvalidError,
+  | MissingParamError
+  | UnexpectedError
+  | InvalidTimeError
+  | ParamInvalidError
+  | UserNotfoundError,
   void
 >;
