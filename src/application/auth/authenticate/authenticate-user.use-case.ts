@@ -42,7 +42,7 @@ export class AuthenticateUserUseCase
 
       const payload = {
         uuid: alreadyExistsUser.uuid,
-        username: alreadyExistsUser.username,
+        name: alreadyExistsUser.name,
         email: alreadyExistsUser.email,
         dateBirth: alreadyExistsUser.dateBirth,
       };

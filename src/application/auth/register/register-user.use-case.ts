@@ -41,6 +41,7 @@ export class RegisterUserUseCase
 
       const user = new User({
         ...input,
+        dateBirth: new Date(input.dateBirth),
         createdAt: new Date(),
         updatedAt: new Date(),
         status: UserStatusValueObject.ENABLE,
