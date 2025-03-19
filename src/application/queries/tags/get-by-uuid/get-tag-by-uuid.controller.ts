@@ -1,11 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { OuputGetTagByUuidDTO } from 'src/domain/dtos/tags/get-by-uuid.dto';
 import { GetTagByUuidService } from './get-tag-by-uuid.service';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('tag')
 @ApiBearerAuth()
+@UseGuards(AuthGuard)
 @ApiTags('Get Tag By Uuid')
 export class GetTagByUuidController {
   constructor(private readonly getTagByUuidService: GetTagByUuidService) {}
