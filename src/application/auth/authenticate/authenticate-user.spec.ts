@@ -49,8 +49,6 @@ describe('authenticate user', () => {
       password: 'password-correct',
     });
 
-    console.log(result.value);
-
     expect(result.isRight()).toBeTruthy();
     expect(result.value).toBeTypeOf('object');
   });
