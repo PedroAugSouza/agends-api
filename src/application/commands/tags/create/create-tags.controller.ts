@@ -18,7 +18,7 @@ import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('tag')
 @ApiBearerAuth()
-@ApiTags('Create Tag Controller')
+@ApiTags('Create Tag')
 @UseGuards(AuthGuard)
 export class CreateTagsController {
   constructor(private readonly createTagUseCase: CreateTagsUseCase) {}

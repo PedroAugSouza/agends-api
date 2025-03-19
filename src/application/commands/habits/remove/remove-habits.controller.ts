@@ -14,7 +14,7 @@ import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('habit')
-@ApiTags('Remove Habit Controller')
+@ApiTags('Remove Habit')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
 export class RemoveHabitsController {

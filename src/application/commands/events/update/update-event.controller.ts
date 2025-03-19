@@ -14,7 +14,7 @@ import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
 
 @Controller('event')
-@ApiTags('Update Event Controller')
+@ApiTags('Update Event')
 @ApiBearerAuth()
 export class UpdateEventController {
   constructor(private readonly updateEventUseCase: UpdateEventUseCase) {}

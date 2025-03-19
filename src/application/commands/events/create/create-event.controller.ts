@@ -17,7 +17,7 @@ import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
 
 @Controller('event')
 @ApiBearerAuth()
-@ApiTags('Create Event Controller')
+@ApiTags('Create Event')
 export class CreateEventController {
   constructor(private readonly createEventUseCase: CreateEventUseCase) {}
 

@@ -12,7 +12,7 @@ import { MissingParamError } from 'src/domain/errors/shared/missing-param.error'
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 
 @Controller('event')
-@ApiTags('Remove Events Controller')
+@ApiTags('Remove Event')
 @ApiBearerAuth()
 export class RemoveEventsController {
   constructor(private readonly removeHabitsUseCase: RemoveHabitsUseCase) {}

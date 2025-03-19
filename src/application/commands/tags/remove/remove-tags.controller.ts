@@ -15,7 +15,7 @@ import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('tag')
 @ApiBearerAuth()
-@ApiTags('Remove Tags Controller')
+@ApiTags('Remove Tags')
 @UseGuards(AuthGuard)
 export class RemoveTagsController {
   constructor(private readonly removeTagUseCase: RemoveTagsUseCase) {}

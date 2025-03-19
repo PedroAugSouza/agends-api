@@ -15,7 +15,7 @@ import { IError } from 'src/infra/error/error';
 import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('habit')
-@ApiTags('Update Habit Controller')
+@ApiTags('Update Habit')
 @ApiBearerAuth()
 @UseGuards(AuthGuard)
 export class UpdateHabitController {
