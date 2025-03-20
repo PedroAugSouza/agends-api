@@ -10,6 +10,9 @@ export class OutputGetHabitByUuidDTO {
   name: string;
 
   @ApiProperty()
+  uuid: string;
+
+  @ApiProperty()
   color: string;
 
   @ApiProperty()
