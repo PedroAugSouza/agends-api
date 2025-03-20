@@ -7,8 +7,8 @@ import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('tag')
 @ApiBearerAuth()
-@UseGuards(AuthGuard)
 @ApiTags('Get Tag By Uuid')
+@UseGuards(AuthGuard)
 export class GetTagByUuidController {
   constructor(private readonly getTagByUuidService: GetTagByUuidService) {}
 
