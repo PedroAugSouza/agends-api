@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 
-export class InpuGetAllHabitsDTO {
+export class InputGetAllHabitsDTO {
   @ApiProperty()
   userUuid: string;
 }

@@ -1,11 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { GetAllTagsService } from './get-all-tags.service';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
 import { OutputGetAllTagsDTO } from 'src/domain/dtos/tags/get-all-tags.dto';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
-@Controller('tag')
+@Controller('tags')
 @ApiTags('Get All Tags Controller')
+@UseGuards(AuthGuard)
 @ApiBearerAuth()
 export class GetAllTagsController {
   constructor(private readonly getAllTagsService: GetAllTagsService) {}

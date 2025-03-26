@@ -5,7 +5,7 @@ import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
 import { AuthGuard } from 'src/infra/auth/auth.guard';
 
-@Controller('tag')
+@Controller('tags/by')
 @ApiBearerAuth()
 @ApiTags('Get Tag By Uuid')
 @UseGuards(AuthGuard)
