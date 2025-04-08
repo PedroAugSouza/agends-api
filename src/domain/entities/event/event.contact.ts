@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { EntityProps } from '../props';
+import { TagProps } from '../tag/tag.contact';
 
 export class EventProps extends EntityProps {
   @ApiProperty()
@@ -19,6 +20,9 @@ export class EventProps extends EntityProps {
 
   @ApiProperty()
   tagUuid: string;
+
+  @ApiProperty({ nullable: true })
+  Tag?: TagProps;
 
   @ApiProperty()
   createdAt: Date;

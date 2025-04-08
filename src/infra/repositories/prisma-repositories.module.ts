@@ -1,6 +1,6 @@
 import { Global, Module } from '@nestjs/common';
 import { DiRepository } from 'src/domain/constants/di.constants';
-import { PrismaEventsRepository } from './events/prisma-events.repository';
+import PrismaEventsRepository from './events/prisma-events.repository';
 import { PrismaHabitsRepository } from './habits/prisma-habits.repository';
 import { PrismaTagsRepository } from './tags/prisma-tags.respository';
 import { PrismaUsersRepository } from './users/prisma.habits.repository';

@@ -7,15 +7,16 @@ import {
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
-import { RemoveHabitsUseCase } from '../../habits/remove/remove-habits.use-case';
+
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
+import { RemoveEventUseCase } from './remove-event.use-case';
 
 @Controller('event')
 @ApiTags('Remove Event')
 @ApiBearerAuth()
 export class RemoveEventsController {
-  constructor(private readonly removeHabitsUseCase: RemoveHabitsUseCase) {}
+  constructor(private readonly removeEventUseCase: RemoveEventUseCase) {}
 
   @Delete('/:uuid')
   @ApiResponse({
@@ -33,7 +34,7 @@ export class RemoveEventsController {
     description: 'Event Removed',
   })
   async handle(@Param('uuid') uuid: string) {
-    const result = await this.removeHabitsUseCase.execute({ uuid });
+    const result = await this.removeEventUseCase.execute({ uuid });
 
     if (result.value instanceof MissingParamError)
       throw new HttpException(result.value, HttpStatus.NOT_ACCEPTABLE);

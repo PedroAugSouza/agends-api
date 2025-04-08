@@ -17,10 +17,10 @@ export class InputCreateEventDTO {
   @ApiProperty()
   date: Date;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true })
   startsOf?: Date;
 
-  @ApiProperty()
+  @ApiProperty({ nullable: true })
   endsOf?: Date;
 
   @ApiProperty()

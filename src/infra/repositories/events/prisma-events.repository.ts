@@ -4,7 +4,7 @@ import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 
 @Injectable()
-export class PrismaEventsRepository implements IEventRepository {
+export default class PrismaEventsRepository implements IEventRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async save(event: EventProps): Promise<void> {
@@ -29,7 +29,7 @@ export class PrismaEventsRepository implements IEventRepository {
       },
     });
   }
-  async update(event: EventProps): Promise<void> {
+  async update(event: Omit<EventProps, 'Tag'>): Promise<void> {
     await this.prisma.event.update({
       data: { ...event },
       where: {
@@ -74,5 +74,23 @@ export class PrismaEventsRepository implements IEventRepository {
       },
     });
     return event ?? null;
+  }
+
+  async findAll(userUuid: string): Promise<EventProps[] | null> {
+    const events = await this.prisma.event.findMany({
+      include: {
+        Tag: true,
+      },
+
+      where: {
+        AssignedEventToUsers: {
+          some: {
+            userUuid,
+          },
+        },
+      },
+    });
+
+    return events ?? null;
   }
 }

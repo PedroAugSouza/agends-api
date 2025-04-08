@@ -1,10 +1,14 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, UseGuards } from '@nestjs/common';
 import { GetAllHabitsService } from './get-all-habits.service';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
-import { OutputGetHabitByUuidDTO } from 'src/domain/dtos/habits/get-habit-by-uuid.dto';
+import { OutputGetAllHabitsDTO } from 'src/domain/dtos/habits/get-all-habits.dto';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('habit')
+@ApiBearerAuth()
+@ApiTags('Get All Habits')
+@UseGuards(AuthGuard)
 export class GetAllHabitsController {
   constructor(private readonly getAllHabitsService: GetAllHabitsService) {}
 
@@ -22,7 +26,7 @@ export class GetAllHabitsController {
   @ApiResponse({
     status: 200,
     description: 'Habit finded',
-    type: OutputGetHabitByUuidDTO,
+    type: [OutputGetAllHabitsDTO],
   })
   async handle(@Param('userUuid') uuid: string) {
     const result = await this.getAllHabitsService.execute({ userUuid: uuid });

@@ -1,14 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { TagProps } from 'src/domain/entities/tag/tag.contact';
 
 export class InputGetAllEventsDTO {
   @ApiProperty()
   userUuid: string;
 
   @ApiProperty()
-  month: number;
-
-  @ApiProperty()
-  week: number;
+  currentMonth: Date;
 }
 
 export class OutputGetAllEventsDTO {
@@ -31,8 +29,5 @@ export class OutputGetAllEventsDTO {
   endsOf?: Date;
 
   @ApiProperty()
-  tagUuid: string;
-
-  @ApiProperty()
-  userUuid: string;
+  tag: TagProps;
 }
