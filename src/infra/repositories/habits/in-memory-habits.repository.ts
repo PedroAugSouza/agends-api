@@ -3,7 +3,7 @@ import { HabitProps } from 'src/domain/entities/habit/habit.contact';
 import { IHabitRepository } from 'src/domain/repositories/habit.repository';
 
 @Injectable()
-export class InMemoryHabitsRepository implements IHabitRepository {
+export default class InMemoryHabitsRepository implements IHabitRepository {
   private readonly habits: Map<string, HabitProps> = new Map();
 
   save(habit: HabitProps): void {
@@ -19,6 +19,13 @@ export class InMemoryHabitsRepository implements IHabitRepository {
     const habit = Array.from(this.habits.values()).filter(
       (habit) => habit.uuid === uuid,
     )[0];
+
+    return habit;
+  }
+  findAll(userUuid: string): null | HabitProps[] {
+    const habit = Array.from(this.habits.values()).filter(
+      (habit) => habit.userUuid === userUuid,
+    );
 
     return habit;
   }

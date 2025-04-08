@@ -31,4 +31,11 @@ export class PrismaTagsRepository implements ITagRepository {
 
     return tag ?? null;
   }
+  async findAll(userUuid: string): Promise<null | TagProps[]> {
+    const tags = await this.prisma.tag.findMany({
+      where: { userUuid },
+    });
+
+    return tags ?? null;
+  }
 }

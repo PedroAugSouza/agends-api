@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { InMemoryEventsRepository } from './events/in-memory-events.repository';
-import { InMemoryHabitsRepository } from './habits/in-memory-habits.repository';
+import InMemoryHabitsRepository from './habits/in-memory-habits.repository';
 import { InMemoryTagsRepository } from './tags/in-memory-tags.repository';
 import { InMemoryUsersRepository } from './users/in-memory-users.repository';
 

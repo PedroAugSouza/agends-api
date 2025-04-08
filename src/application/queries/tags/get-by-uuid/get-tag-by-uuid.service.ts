@@ -1,23 +1,23 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
+import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputGetTagByUuidDTO,
   OuputGetTagByUuidDTO,
 } from 'src/domain/dtos/tags/get-by-uuid.dto';
-import { PrismaService } from 'src/infra/prisma/prisma.service';
+import { ITagRepository } from 'src/domain/repositories/tags.repository';
 import { IUseCase } from 'src/infra/use-case/shared/use-case';
 
 @Injectable()
 export class GetTagByUuidService
   implements IUseCase<InputGetTagByUuidDTO, OuputGetTagByUuidDTO>
 {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    @Inject(DiRepository.TAGS)
+    private readonly tagsRepository: ITagRepository,
+  ) {}
 
   async execute(input: InputGetTagByUuidDTO): Promise<OuputGetTagByUuidDTO> {
-    const result = await this.prisma.tag.findUnique({
-      where: {
-        uuid: input.uuid,
-      },
-    });
+    const result = await this.tagsRepository.findByUuid(input.uuid);
 
     if (!result) return null;
 

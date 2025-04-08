@@ -19,4 +19,11 @@ export class InMemoryTagsRepository implements ITagRepository {
 
     return tag;
   }
+  findAll(userUuid: string): null | TagProps[] {
+    const tags = Array.from(this.tags.values()).filter(
+      (tag) => tag.userUuid === userUuid,
+    );
+
+    return tags ?? null;
+  }
 }

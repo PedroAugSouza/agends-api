@@ -4,4 +4,5 @@ export interface ITagRepository {
   save(tag: TagProps): void | Promise<void>;
   remove(uuid: string): void | Promise<void>;
   findByUuid(uuid: string): null | TagProps | Promise<null | TagProps>;
+  findAll(userUuid: string): null | TagProps[] | Promise<null | TagProps[]>;
 }

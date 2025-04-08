@@ -69,4 +69,10 @@ export class PrismaHabitsRepository implements IHabitRepository {
     });
     return habit ?? null;
   }
+  async findAll(userUuid: string): Promise<null | HabitProps[]> {
+    const habit = await this.prisma.habit.findMany({
+      where: { userUuid },
+    });
+    return habit ?? null;
+  }
 }
