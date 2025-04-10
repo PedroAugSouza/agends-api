@@ -8,14 +8,24 @@ export class Event extends Entity<EventProps> {
   constructor(props: EventProps, uuid?: string) {
     super();
 
-    if ((props.allDay && props.endsOf) || props.startsOf) {
+    if (props.allDay && props.endsOf && props.startsOf) {
       this.result = new Left(new ParamInvalidError('This event is all day'));
       return;
     }
 
-    if (!props.allDay && !props.endsOf && !props.startsOf) {
+    if (
+      props.allDay === false &&
+      props.endsOf === null &&
+      props.startsOf === null
+    ) {
       this.result = new Left(new ParamInvalidError(`Event time not indicated`));
       return;
+    }
+
+    if (props.startsOf > props.endsOf) {
+      this.result = new Left(
+        new ParamInvalidError(`Event with end time before start time`),
+      );
     }
 
     this.create(props, uuid);

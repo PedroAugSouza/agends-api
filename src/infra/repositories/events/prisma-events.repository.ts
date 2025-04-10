@@ -4,7 +4,7 @@ import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
 
 @Injectable()
-export default class PrismaEventsRepository implements IEventRepository {
+export class PrismaEventsRepository implements IEventRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   async save(event: EventProps): Promise<void> {
@@ -92,5 +92,17 @@ export default class PrismaEventsRepository implements IEventRepository {
     });
 
     return events ?? null;
+  }
+
+  async assignMany(
+    input: { userUuid: string; eventUuid: string }[],
+  ): Promise<void> {
+    await this.prisma.assignedEventToUsers.createMany({
+      data: input.map((item) => ({
+        createdAt: new Date(),
+        updatedAt: new Date(),
+        ...item,
+      })),
+    });
   }
 }

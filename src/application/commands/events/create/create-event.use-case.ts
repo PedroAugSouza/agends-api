@@ -60,6 +60,19 @@ export class CreateEventUseCase
         event.result.value.uuid,
       );
 
+      if (input.assignedUsers?.length) {
+        await this.eventsRepository.assignMany(
+          input.assignedUsers.map((assignedUser) => {
+            if (event.result.value instanceof ParamInvalidError) return;
+
+            return {
+              eventUuid: event.result.value.uuid,
+              userUuid: assignedUser,
+            };
+          }),
+        );
+      }
+
       return right(undefined);
     } catch (error) {
       return left(new UnexpectedError(error));

@@ -27,6 +27,18 @@ export class InMemoryEventsRepository implements IEventRepository {
       uuid,
     });
   }
+
+  assignMany(input: { userUuid: string; eventUuid: string }[]): void {
+    const uuid = randomUUID();
+
+    input.map(({ eventUuid, userUuid }) => {
+      return this.assignedEventsToUsers.set(uuid, {
+        eventUuid,
+        userUuid,
+        uuid,
+      });
+    });
+  }
   removeAssign(userUuid: string, eventUuid: string): void {
     const assign = Array.from(this.assignedEventsToUsers.values()).filter(
       (assign) =>

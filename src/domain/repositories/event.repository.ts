@@ -5,6 +5,12 @@ export interface IEventRepository {
   remove(uuid: string): void | Promise<void>;
   update(event: EventProps): void | Promise<void>;
   assign(userUuid: string, eventUuid: string): void | Promise<void>;
+  assignMany(
+    input: {
+      userUuid: string;
+      eventUuid: string;
+    }[],
+  ): void | Promise<void>;
   removeAssign(userUuid: string, eventUuid: string): void | Promise<void>;
   findByUuid(uuid: string): EventProps | null | Promise<EventProps | null>;
   findAll(userUuid: string): EventProps[] | null | Promise<EventProps[] | null>;

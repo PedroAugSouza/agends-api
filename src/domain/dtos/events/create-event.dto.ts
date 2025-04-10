@@ -28,6 +28,9 @@ export class InputCreateEventDTO {
 
   @ApiProperty()
   userUuid: string;
+
+  @ApiProperty({ nullable: true })
+  assignedUsers?: string[];
 }
 
 export type OutputCreateEventDTO = Either<
