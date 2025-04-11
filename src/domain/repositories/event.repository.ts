@@ -7,7 +7,7 @@ export interface IEventRepository {
   assign(userUuid: string, eventUuid: string): void | Promise<void>;
   assignMany(
     input: {
-      userUuid: string;
+      userEmail: string;
       eventUuid: string;
     }[],
   ): void | Promise<void>;

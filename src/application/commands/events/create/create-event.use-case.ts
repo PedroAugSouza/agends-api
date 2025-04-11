@@ -67,7 +67,7 @@ export class CreateEventUseCase
 
             return {
               eventUuid: event.result.value.uuid,
-              userUuid: assignedUser,
+              userEmail: assignedUser,
             };
           }),
         );

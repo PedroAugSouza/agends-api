@@ -1,12 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { EventProps } from 'src/domain/entities/event/event.contact';
+import { UserProps } from 'src/domain/entities/user/user.contact';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { AssignedEventsToUsers } from 'src/domain/value-objects/assigned-events-to-users.value-object';
 
 @Injectable()
 export class InMemoryEventsRepository implements IEventRepository {
   private readonly events: Map<string, EventProps> = new Map();
+  private readonly users: Map<string, UserProps> = new Map();
   private readonly assignedEventsToUsers: Map<string, AssignedEventsToUsers> =
     new Map();
 
@@ -28,13 +30,17 @@ export class InMemoryEventsRepository implements IEventRepository {
     });
   }
 
-  assignMany(input: { userUuid: string; eventUuid: string }[]): void {
-    const uuid = randomUUID();
+  assignMany(input: { userEmail: string; eventUuid: string }[]): void {
+    input.map(({ eventUuid, userEmail }) => {
+      const uuid = randomUUID();
 
-    input.map(({ eventUuid, userUuid }) => {
+      const user = Array.from(this.users.values()).filter(
+        (user) => user.email === userEmail,
+      )[0];
+
       return this.assignedEventsToUsers.set(uuid, {
         eventUuid,
-        userUuid,
+        userUuid: user.uuid,
         uuid,
       });
     });

@@ -95,14 +95,23 @@ export class PrismaEventsRepository implements IEventRepository {
   }
 
   async assignMany(
-    input: { userUuid: string; eventUuid: string }[],
+    input: { userEmail: string; eventUuid: string }[],
   ): Promise<void> {
-    await this.prisma.assignedEventToUsers.createMany({
-      data: input.map((item) => ({
-        createdAt: new Date(),
-        updatedAt: new Date(),
-        ...item,
-      })),
+    input.map(async (item) => {
+      const alreadyExistsUser = await this.prisma.user.findFirst({
+        where: {
+          email: item.userEmail,
+        },
+      });
+      if (!alreadyExistsUser) return;
+      await this.prisma.assignedEventToUsers.createMany({
+        data: input.map((item) => ({
+          createdAt: new Date(),
+          updatedAt: new Date(),
+          userUuid: alreadyExistsUser.uuid,
+          eventUuid: item.eventUuid,
+        })),
+      });
     });
   }
 }
