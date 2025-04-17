@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { TagProps } from 'src/domain/entities/tag/tag.contact';
+import { AssignedEventsToUsers } from 'src/domain/value-objects/assigned-events-to-users.value-object';
 
 export class InputGetAllEventsDTO {
   @ApiProperty()
@@ -30,4 +31,7 @@ export class OutputGetAllEventsDTO {
 
   @ApiProperty()
   tag: TagProps;
+
+  @ApiProperty({ isArray: true, type: AssignedEventsToUsers })
+  assignedEventToUsers: AssignedEventsToUsers[];
 }

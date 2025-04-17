@@ -80,6 +80,14 @@ export class PrismaEventsRepository implements IEventRepository {
     const events = await this.prisma.event.findMany({
       include: {
         Tag: true,
+        AssignedEventToUsers: {
+          select: {
+            user: true,
+            event: true,
+            userUuid: true,
+            uuid: true,
+          },
+        },
       },
 
       where: {

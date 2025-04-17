@@ -9,8 +9,10 @@ import { AssignedEventsToUsers } from 'src/domain/value-objects/assigned-events-
 export class InMemoryEventsRepository implements IEventRepository {
   private readonly events: Map<string, EventProps> = new Map();
   private readonly users: Map<string, UserProps> = new Map();
-  private readonly assignedEventsToUsers: Map<string, AssignedEventsToUsers> =
-    new Map();
+  private readonly assignedEventsToUsers: Map<
+    string,
+    Omit<AssignedEventsToUsers, 'event' | 'user'>
+  > = new Map();
 
   save(event: EventProps): void {
     this.events.set(event.uuid, event);
@@ -41,6 +43,7 @@ export class InMemoryEventsRepository implements IEventRepository {
       return this.assignedEventsToUsers.set(uuid, {
         eventUuid,
         userUuid: user.uuid,
+
         uuid,
       });
     });

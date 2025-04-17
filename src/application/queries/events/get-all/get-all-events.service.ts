@@ -28,16 +28,25 @@ export class GetAllEventsService
     return result.map(
       (data) =>
         ({
-          allDay: data.allDay,
-          date: data.date,
+          uuid: data.uuid,
           name: data.name,
+          date: data.date,
           tag: {
+            uuid: data?.Tag?.uuid,
             color: data?.Tag?.color,
             name: data?.Tag?.name,
           },
-          uuid: data.uuid,
+          allDay: data.allDay,
           endsOf: data.endsOf,
           startsOf: data.startsOf,
+          assignedEventToUsers: data.AssignedEventToUsers?.map((assignee) => ({
+            uuid: assignee.uuid,
+            user: {
+              uuid: assignee.user.uuid,
+              name: assignee.user.name,
+              email: assignee.user.email,
+            },
+          })),
         }) as OutputGetAllEventsDTO,
     );
   }

@@ -1,6 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { EntityProps } from '../props';
 import { TagProps } from '../tag/tag.contact';
+import { AssignedEventsToUsers } from 'src/domain/value-objects/assigned-events-to-users.value-object';
 
 export class EventProps extends EntityProps {
   @ApiProperty()
@@ -23,6 +24,9 @@ export class EventProps extends EntityProps {
 
   @ApiProperty({ nullable: true })
   Tag?: TagProps;
+
+  @ApiProperty({ isArray: true, type: AssignedEventsToUsers, nullable: true })
+  AssigneeEventToUsers?: AssignedEventsToUsers[];
 
   @ApiProperty()
   createdAt: Date;
