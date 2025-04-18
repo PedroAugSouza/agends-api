@@ -25,6 +25,8 @@ export class UpdateEventUseCase
     try {
       if (!input.uuid) return left(new MissingParamError('uuid'));
 
+
+
       const event = await this.eventsRepository.findByUuid(input.uuid);
 
       const newEvent = new Event({ ...input, ...event }, input.uuid);

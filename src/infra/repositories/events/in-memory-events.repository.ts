@@ -48,7 +48,7 @@ export class InMemoryEventsRepository implements IEventRepository {
       });
     });
   }
-  removeAssign(userUuid: string, eventUuid: string): void {
+  removeAssignment(userUuid: string, eventUuid: string): void {
     const assign = Array.from(this.assignedEventsToUsers.values()).filter(
       (assign) =>
         assign.eventUuid === eventUuid && assign.userUuid === userUuid,
