@@ -25,11 +25,21 @@ export class UpdateEventUseCase
     try {
       if (!input.uuid) return left(new MissingParamError('uuid'));
 
-
-
       const event = await this.eventsRepository.findByUuid(input.uuid);
 
-      const newEvent = new Event({ ...input, ...event }, input.uuid);
+      const newEvent = new Event(
+        {
+          allDay: input.allDay ?? event.allDay,
+          createdAt: event.createdAt,
+          date: input.date ?? event.date,
+          endsOf: input.endsOf ?? event.endsOf,
+          startsOf: input.startsOf ?? event.startsOf,
+          name: input.name ?? event.name,
+          tagUuid: input.tagUuid ?? event.tagUuid,
+          updatedAt: new Date(),
+        },
+        input.uuid,
+      );
 
       if (newEvent.result.value instanceof ParamInvalidError)
         return left(newEvent.result.value);

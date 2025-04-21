@@ -1,6 +1,7 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
 import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { Either } from 'src/infra/utils/either/either';
 
@@ -29,6 +30,6 @@ export class InputUpdateEventDTO {
 }
 
 export type OutputUpdateEventDTO = Either<
-  MissingParamError | UnexpectedError | InvalidTimeError,
+  MissingParamError | UnexpectedError | ParamInvalidError | InvalidTimeError,
   void
 >;

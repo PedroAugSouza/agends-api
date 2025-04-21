@@ -31,7 +31,16 @@ export class PrismaEventsRepository implements IEventRepository {
   }
   async update(event: Omit<EventProps, 'Tag'>): Promise<void> {
     await this.prisma.event.update({
-      data: { ...event },
+      data: {
+        allDay: event.allDay,
+        createdAt: event.createdAt,
+        date: event.date,
+        endsOf: event.endsOf,
+        name: event.name,
+        startsOf: event.startsOf,
+        tagUuid: event.tagUuid,
+        updatedAt: new Date(),
+      },
       where: {
         uuid: event.uuid,
       },

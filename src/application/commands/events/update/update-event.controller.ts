@@ -12,6 +12,7 @@ import { IError } from 'src/infra/error/error';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
+import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
 
 @Controller('event')
 @ApiTags('Update Event')
@@ -44,6 +45,9 @@ export class UpdateEventController {
       throw new HttpException(result.value, HttpStatus.INTERNAL_SERVER_ERROR);
 
     if (result.value instanceof InvalidTimeError)
+      throw new HttpException(result.value, HttpStatus.NOT_ACCEPTABLE);
+
+    if (result.value instanceof ParamInvalidError)
       throw new HttpException(result.value, HttpStatus.NOT_ACCEPTABLE);
 
     return result.value;
