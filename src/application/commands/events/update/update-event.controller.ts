@@ -17,6 +17,7 @@ import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error'
 @Controller('event')
 @ApiTags('Update Event')
 @ApiBearerAuth()
+
 export class UpdateEventController {
   constructor(private readonly updateEventUseCase: UpdateEventUseCase) {}
 

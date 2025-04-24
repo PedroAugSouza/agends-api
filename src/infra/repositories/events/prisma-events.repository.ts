@@ -57,22 +57,16 @@ export class PrismaEventsRepository implements IEventRepository {
     });
   }
   async removeAssignment(userUuid: string, eventUuid: string): Promise<void> {
-    const event = await this.prisma.assignedEventToUsers.findFirst({
+    const assign = await this.prisma.assignedEventToUsers.findFirst({
       where: {
-        AND: [
-          {
-            userUuid,
-          },
-          {
-            eventUuid,
-          },
-        ],
+        userUuid,
+        eventUuid,
       },
     });
 
-    await this.prisma.event.delete({
+    await this.prisma.assignedEventToUsers.delete({
       where: {
-        uuid: event.uuid,
+        uuid: assign.uuid,
       },
     });
   }
