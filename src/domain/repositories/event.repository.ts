@@ -11,7 +11,7 @@ export interface IEventRepository {
       eventUuid: string;
     }[],
   ): void | Promise<void>;
-  removeAssignment(userUuid: string, eventUuid: string): void | Promise<void>;
+  removeAssignment(userEmail: string, eventUuid: string): void | Promise<void>;
   findByUuid(uuid: string): EventProps | null | Promise<EventProps | null>;
   findAll(userUuid: string): EventProps[] | null | Promise<EventProps[] | null>;
 }
