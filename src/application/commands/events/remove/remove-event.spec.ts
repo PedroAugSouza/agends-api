@@ -5,6 +5,8 @@ import { InMemoryRepositoriesModule } from 'src/infra/repositories/in-memory-rep
 import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { getEventDummy } from '__test__dummy/mock/mock.entities';
+import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
 
 describe('Remove Event Use Case: ', () => {
   let removeEventUseCase: RemoveEventUseCase;
@@ -30,11 +32,24 @@ describe('Remove Event Use Case: ', () => {
     const result = await removeEventUseCase.execute({ uuid: mockEvent.uuid });
 
     expect(result.isRight()).toBeTruthy();
+    const hasEvent = await eventsRepository.findByUuid(mockEvent.uuid);
+    expect(hasEvent).toBeNull();
+    expect(result.value).toBeUndefined();
   });
 
   it(`shouldn't be able to remove a event if the param uuid is missing`, async () => {
     const result = await removeEventUseCase.execute({ uuid: '' });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
+  });
+
+  it(`shouldn't be able to remove a event if the event not exist`, async () => {
+    const result = await removeEventUseCase.execute({
+      uuid: 'inexistent event',
+    });
+
+    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(EventNotFoundError);
   });
 });

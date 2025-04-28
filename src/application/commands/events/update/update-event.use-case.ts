@@ -5,6 +5,7 @@ import {
   OutputUpdateEventDTO,
 } from 'src/domain/dtos/events/update-event.dto';
 import { Event } from 'src/domain/entities/event/event.entity';
+import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
@@ -26,6 +27,8 @@ export class UpdateEventUseCase
       if (!input.uuid) return left(new MissingParamError('uuid'));
 
       const event = await this.eventsRepository.findByUuid(input.uuid);
+
+      if (!event) return left(new EventNotFoundError());
 
       const newEvent = new Event(
         {

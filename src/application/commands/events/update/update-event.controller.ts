@@ -13,11 +13,11 @@ import { MissingParamError } from 'src/domain/errors/shared/missing-param.error'
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
 import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
+import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
 
 @Controller('event')
 @ApiTags('Update Event')
 @ApiBearerAuth()
-
 export class UpdateEventController {
   constructor(private readonly updateEventUseCase: UpdateEventUseCase) {}
 
@@ -50,6 +50,9 @@ export class UpdateEventController {
 
     if (result.value instanceof ParamInvalidError)
       throw new HttpException(result.value, HttpStatus.NOT_ACCEPTABLE);
+
+    if (result.value instanceof EventNotFoundError)
+      throw new HttpException(result.value, HttpStatus.NOT_FOUND);
 
     return result.value;
   }

@@ -6,6 +6,9 @@ import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { getEventDummy, getUserDummy } from '__test__dummy/mock/mock.entities';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
+import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
 
 describe('Remove assignments use case: ', () => {
   let removeAssignmentUseCase: RemoveAssignmentUseCase;
@@ -36,12 +39,50 @@ describe('Remove assignments use case: ', () => {
 
   it(`should be able to remove an assignment`, async () => {
     const result = await removeAssignmentUseCase.execute({
-      userUuid: mockUser.email,
+      userEmail: mockUser.email,
       eventUuid: mockEvent.uuid,
     });
 
     console.log(result.value);
 
     expect(result.isRight()).toBeTruthy();
+  });
+  it(`shouldn't be able to remove an assignment if the user email is missing`, async () => {
+    const result = await removeAssignmentUseCase.execute({
+      userEmail: '',
+      eventUuid: mockEvent.uuid,
+    });
+
+    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
+  });
+
+  it(`shouldn't be able to remove an assignment if the event uuid is missing`, async () => {
+    const result = await removeAssignmentUseCase.execute({
+      userEmail: mockUser.email,
+      eventUuid: '',
+    });
+
+    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
+  });
+
+  it(`shouldn't be able to remove an assignment if the user not exist`, async () => {
+    const result = await removeAssignmentUseCase.execute({
+      userEmail: 'inextistent user',
+      eventUuid: mockEvent.uuid,
+    });
+
+    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(UserNotfoundError);
+  });
+  it(`shouldn't be able to remove an assignment if the event not exist`, async () => {
+    const result = await removeAssignmentUseCase.execute({
+      userEmail: mockUser.email,
+      eventUuid: 'inextistent event',
+    });
+
+    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(EventNotFoundError);
   });
 });

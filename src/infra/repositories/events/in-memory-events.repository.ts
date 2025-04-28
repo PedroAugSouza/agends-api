@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { EventProps } from 'src/domain/entities/event/event.contact';
+import { UserProps } from 'src/domain/entities/user/user.contact';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { AssignedEventsToUsers } from 'src/domain/value-objects/assigned-events-to-users.value-object';
@@ -53,7 +54,7 @@ export class InMemoryEventsRepository implements IEventRepository {
     });
   }
   removeAssignment(userEmail: string, eventUuid: string): void {
-    const user = this.users.findByEmail(userEmail).then();
+    const user = this.users.findByEmail(userEmail) as UserProps;
 
     const assign = Array.from(this.assignedEventsToUsers.values()).filter(
       (assign) =>

@@ -6,6 +6,9 @@ import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { getEventDummy, getUserDummy } from '__test__dummy/mock/mock.entities';
 import { setHours } from 'date-fns';
+import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
 
 describe('Create Event Use Case:', () => {
   let createEventUseCase: CreateEventUseCase;
@@ -32,6 +35,7 @@ describe('Create Event Use Case:', () => {
       name: '',
     });
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeUndefined();
   });
 
   it('should not create event without user uuid', async () => {
@@ -40,6 +44,7 @@ describe('Create Event Use Case:', () => {
       userUuid: '',
     });
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
   it('should not create event without tag uuid', async () => {
     const result = await createEventUseCase.execute({
@@ -48,6 +53,7 @@ describe('Create Event Use Case:', () => {
       tagUuid: '',
     });
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it('should not create event without all day param', async () => {
@@ -57,6 +63,7 @@ describe('Create Event Use Case:', () => {
       allDay: null,
     });
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it(`shoudn't be able to create a new event if user not exists`, async () => {
@@ -65,6 +72,7 @@ describe('Create Event Use Case:', () => {
       userUuid: 'inextent user',
     });
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(UserNotfoundError);
   });
 
   it('should not create event without date', async () => {
@@ -74,15 +82,7 @@ describe('Create Event Use Case:', () => {
       date: null,
     });
     expect(result.isRight()).toBeFalsy();
-  });
-
-  it('should not create event with invalid date', async () => {
-    const result = await createEventUseCase.execute({
-      ...mockEvent,
-      userUuid: mockUser.uuid,
-      date: null,
-    });
-    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it('should not create event with end time before start time', async () => {
@@ -93,6 +93,7 @@ describe('Create Event Use Case:', () => {
       endsOf: setHours(new Date(), 14),
     });
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(ParamInvalidError);
   });
 
   it('should create all-day event without start/end times', async () => {
@@ -105,5 +106,6 @@ describe('Create Event Use Case:', () => {
     });
 
     expect(result.isRight()).toBeTruthy();
+    expect(result.value).toBeUndefined();
   });
 });

@@ -5,6 +5,8 @@ import { getEventDummy } from '__test__dummy/mock/mock.entities';
 import { Test, TestingModule } from '@nestjs/testing';
 import { InMemoryRepositoriesModule } from 'src/infra/repositories/in-memory-repositories.module';
 import { DiRepository } from 'src/domain/constants/di.constants';
+import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
+import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 
 describe('Update Event Use Case: ', () => {
   let updateEventUseCase: UpdateEventUseCase;
@@ -33,6 +35,9 @@ describe('Update Event Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeTruthy();
+    const updatedEvent = await eventsRepository.findByUuid(mockEvent.uuid);
+    expect(updatedEvent?.name).toBe('new name');
+    expect(result.value).toBeUndefined();
   });
 
   it(`shouldn't be able to update a event if the uuid is missing`, async () => {
@@ -42,5 +47,16 @@ describe('Update Event Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
+  });
+
+  it(`shouldn't be able to update a event if the event not exists`, async () => {
+    const result = await updateEventUseCase.execute({
+      uuid: 'inexistent event',
+      name: 'new name',
+    });
+
+    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(EventNotFoundError);
   });
 });

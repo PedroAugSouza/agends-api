@@ -11,6 +11,7 @@ import { IError } from 'src/infra/error/error';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { RemoveEventUseCase } from './remove-event.use-case';
+import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
 
 @Controller('event')
 @ApiTags('Remove Event')
@@ -41,6 +42,9 @@ export class RemoveEventsController {
 
     if (result.value instanceof UnexpectedError)
       throw new HttpException(result.value, HttpStatus.INTERNAL_SERVER_ERROR);
+
+    if (result.value instanceof EventNotFoundError)
+      throw new HttpException(result.value, HttpStatus.NOT_FOUND);
 
     return result.value;
   }
