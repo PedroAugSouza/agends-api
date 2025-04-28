@@ -41,6 +41,7 @@ export class GetAllEventsService
           startsOf: data.startsOf,
           assignedEventToUsers: data.AssignedEventToUsers?.map((assignee) => ({
             uuid: assignee.uuid,
+            isOwner: assignee.isOwner,
             user: {
               uuid: assignee.user.uuid,
               name: assignee.user.name,

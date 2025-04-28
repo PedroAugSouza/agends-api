@@ -2,10 +2,12 @@ import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import { UserProps } from '../entities/user/user.contact';
 import { EventProps } from '../entities/event/event.contact';
 
-// @ApiSchema({ name: 'AssignedEventsToUsers' })
 export class AssignedEventsToUsers {
   @ApiProperty()
   uuid: string;
+
+  @ApiProperty()
+  isOwner: boolean;
 
   @ApiProperty()
   eventUuid: string;

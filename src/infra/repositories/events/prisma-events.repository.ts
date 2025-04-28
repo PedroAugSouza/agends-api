@@ -46,11 +46,16 @@ export class PrismaEventsRepository implements IEventRepository {
       },
     });
   }
-  async assign(userUuid: string, eventUuid: string): Promise<void> {
+  async assign(
+    userUuid: string,
+    eventUuid: string,
+    isOwner: boolean = false,
+  ): Promise<void> {
     await this.prisma.assignedEventToUsers.create({
       data: {
         eventUuid,
         userUuid,
+        isOwner,
         createdAt: new Date(),
         updatedAt: new Date(),
       },
@@ -87,6 +92,7 @@ export class PrismaEventsRepository implements IEventRepository {
         Tag: true,
         AssignedEventToUsers: {
           select: {
+            isOwner: true,
             user: true,
             event: true,
             userUuid: true,

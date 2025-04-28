@@ -28,11 +28,12 @@ export class InMemoryEventsRepository implements IEventRepository {
   update(event: EventProps): void {
     this.events.set(event.uuid, event);
   }
-  assign(userUuid: string, eventUuid: string): void {
+  assign(userUuid: string, eventUuid: string, isOwner: boolean): void {
     const uuid = randomUUID();
     this.assignedEventsToUsers.set(uuid, {
       eventUuid,
       userUuid,
+      isOwner,
       uuid,
     });
   }
@@ -46,7 +47,7 @@ export class InMemoryEventsRepository implements IEventRepository {
       return this.assignedEventsToUsers.set(uuid, {
         eventUuid,
         userUuid: user.uuid,
-
+        isOwner: false,
         uuid,
       });
     });

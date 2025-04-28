@@ -58,6 +58,7 @@ export class CreateEventUseCase
       await this.eventsRepository.assign(
         input.userUuid,
         event.result.value.uuid,
+        true,
       );
 
       if (input.assignedUsers?.length) {

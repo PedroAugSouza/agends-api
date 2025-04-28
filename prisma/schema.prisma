@@ -29,7 +29,8 @@ enum UserStatus {
 }
 
 model AssignedEventToUsers {
-  uuid      String @id @default(uuid())
+  uuid      String  @id @default(uuid())
+  isOwner   Boolean @default(false)
   userUuid  String
   eventUuid String
 
