@@ -1,14 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
+import { DiRepository } from 'src/domain/constants/di.constants';
 import { EventProps } from 'src/domain/entities/event/event.contact';
-import { UserProps } from 'src/domain/entities/user/user.contact';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
+import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { AssignedEventsToUsers } from 'src/domain/value-objects/assigned-events-to-users.value-object';
 
 @Injectable()
 export class InMemoryEventsRepository implements IEventRepository {
+  constructor(
+    @Inject(DiRepository.USERS)
+    private readonly users: IUserRepository,
+  ) {}
+
   private readonly events: Map<string, EventProps> = new Map();
-  private readonly users: Map<string, UserProps> = new Map();
   private readonly assignedEventsToUsers: Map<
     string,
     Omit<AssignedEventsToUsers, 'event' | 'user'>
@@ -36,9 +41,7 @@ export class InMemoryEventsRepository implements IEventRepository {
     input.map(({ eventUuid, userEmail }) => {
       const uuid = randomUUID();
 
-      const user = Array.from(this.users.values()).filter(
-        (user) => user.email === userEmail,
-      )[0];
+      const user = this.users.findByEmail(userEmail).then();
 
       return this.assignedEventsToUsers.set(uuid, {
         eventUuid,
@@ -49,9 +52,7 @@ export class InMemoryEventsRepository implements IEventRepository {
     });
   }
   removeAssignment(userEmail: string, eventUuid: string): void {
-    const user = Array.from(this.users.values()).filter(
-      (user) => user.email === userEmail,
-    )[0];
+    const user = this.users.findByEmail(userEmail).then();
 
     const assign = Array.from(this.assignedEventsToUsers.values()).filter(
       (assign) =>

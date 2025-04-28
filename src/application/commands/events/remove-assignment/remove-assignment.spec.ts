@@ -36,9 +36,11 @@ describe('Remove assignments use case: ', () => {
 
   it(`should be able to remove an assignment`, async () => {
     const result = await removeAssignmentUseCase.execute({
-      userUuid: mockUser.uuid,
+      userUuid: mockUser.email,
       eventUuid: mockEvent.uuid,
     });
+
+    console.log(result.value);
 
     expect(result.isRight()).toBeTruthy();
   });
