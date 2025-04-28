@@ -2,7 +2,7 @@ import { ApiProperty, OmitType, PickType } from '@nestjs/swagger';
 import { UserProps } from '../entities/user/user.contact';
 import { EventProps } from '../entities/event/event.contact';
 
-export class AssignedEventsToUsers {
+  export class AssignedEventsToUsers {
   @ApiProperty()
   uuid: string;
 

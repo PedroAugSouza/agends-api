@@ -4,16 +4,21 @@ import {
   HttpException,
   HttpStatus,
   Param,
+  UseGuards,
 } from '@nestjs/common';
 import { RemoveAssignmentUseCase } from './remove-assignment.use-case';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
 import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
-import { ApiResponse } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { IError } from 'src/infra/error/error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('remove-assignment')
+@ApiTags('Remove Assignment')
+@ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class RemoveAssignmentController {
   constructor(
     private readonly removeAssignmentUseCase: RemoveAssignmentUseCase,

@@ -1,4 +1,5 @@
 import { ApiProperty, ApiSchema } from '@nestjs/swagger';
+import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
 import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
@@ -30,6 +31,6 @@ export class InputUpdateEventDTO {
 }
 
 export type OutputUpdateEventDTO = Either<
-  MissingParamError | UnexpectedError | ParamInvalidError | InvalidTimeError,
+  MissingParamError | UnexpectedError | ParamInvalidError | InvalidTimeError | EventNotFoundError,
   void
 >;

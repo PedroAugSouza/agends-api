@@ -4,6 +4,7 @@ import {
   HttpException,
   HttpStatus,
   Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UpdateEventUseCase } from './update-event.use-case';
@@ -14,10 +15,12 @@ import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
 import { InvalidTimeError } from 'src/domain/errors/events/invalid-time.error';
 import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
 import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
+import { AuthGuard } from 'src/infra/auth/auth.guard';
 
 @Controller('event')
 @ApiTags('Update Event')
 @ApiBearerAuth()
+@UseGuards(AuthGuard)
 export class UpdateEventController {
   constructor(private readonly updateEventUseCase: UpdateEventUseCase) {}
 
