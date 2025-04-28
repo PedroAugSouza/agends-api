@@ -5,6 +5,8 @@ import { InMemoryRepositoriesModule } from 'src/infra/repositories/in-memory-rep
 import { getHabitDummy, getUserDummy } from '__test__dummy/mock/mock.entities';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
+import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 
 describe('Create Habits Use Case: ', () => {
   let createHabitsUseCase: CreateHabitsUseCase;
@@ -35,6 +37,7 @@ describe('Create Habits Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeTruthy();
+    expect(result.value).toBeUndefined();
   });
 
   it(`shouldn't be able to create a new habit if user not exist`, async () => {
@@ -46,6 +49,7 @@ describe('Create Habits Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(UserNotfoundError);
   });
 
   it(`shouldn't be able to create new habit if the color param is missing`, async () => {
@@ -57,6 +61,7 @@ describe('Create Habits Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it(`shouldn't be able to create new habit if the day param is missing`, async () => {
@@ -68,6 +73,7 @@ describe('Create Habits Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it(`shouldn't be able to create new habit if the name param is missing`, async () => {
@@ -79,6 +85,7 @@ describe('Create Habits Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it(`shouldn't be able to create new habit if the color param is missing`, async () => {
@@ -90,5 +97,6 @@ describe('Create Habits Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 });

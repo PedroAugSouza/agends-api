@@ -6,6 +6,8 @@ import { CreateTagsUseCase } from './create-tags.use-case';
 import { getTagDummy, getUserDummy } from '__test__dummy/mock/mock.entities';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
+import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
 
 describe('Create Tag Use Case: ', () => {
   let createTagsUseCase: CreateTagsUseCase;
@@ -36,6 +38,7 @@ describe('Create Tag Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeTruthy();
+    expect(result.value).toBeUndefined();
   });
 
   it(`shouldn't be able to create a new tag if the param name is missing`, async () => {
@@ -46,6 +49,7 @@ describe('Create Tag Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it(`shouldn't be able to create a new tag if the param color is missing`, async () => {
@@ -56,6 +60,7 @@ describe('Create Tag Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it(`shouldn't be able to create a new tag if the param userUuid is missing`, async () => {
@@ -66,8 +71,9 @@ describe('Create Tag Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
-  
+
   it(`shouldn't be able to create a new tag if user not exist`, async () => {
     const result = await createTagsUseCase.execute({
       color: mockTag.color,
@@ -76,5 +82,6 @@ describe('Create Tag Use Case: ', () => {
     });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(UserNotfoundError);
   });
 });

@@ -6,6 +6,8 @@ import { RemoveTagsUseCase } from './remove-tags.use-case';
 import { ITagRepository } from 'src/domain/repositories/tags.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { getTagDummy } from '__test__dummy/mock/mock.entities';
+import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { TagNotFoundError } from 'src/domain/errors/tags/tag-not-found.error';
 
 describe('Remove Tag Use Case: ', () => {
   let removeTagUseCase: RemoveTagsUseCase;
@@ -30,11 +32,22 @@ describe('Remove Tag Use Case: ', () => {
     const result = await removeTagUseCase.execute({ uuid: mockTag.uuid });
 
     expect(result.isRight()).toBeTruthy();
+    const hasTag = await tagRepository.findByUuid(mockTag.uuid);
+    expect(hasTag).toBeUndefined();
+    expect(result.value).toBeUndefined();
   });
 
   it(`shouldn't be able to remove a tag if uuid is missing`, async () => {
     const result = await removeTagUseCase.execute({ uuid: '' });
 
     expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(MissingParamError);
+  });
+
+  it(`shouldn't be able to remove a tag not exists`, async () => {
+    const result = await removeTagUseCase.execute({ uuid: 'inexistent tag' });
+
+    expect(result.isRight()).toBeFalsy();
+    expect(result.value).toBeInstanceOf(TagNotFoundError);
   });
 });

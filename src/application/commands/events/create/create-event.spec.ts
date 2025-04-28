@@ -28,6 +28,15 @@ describe('Create Event Use Case:', () => {
     usersRepository.save(mockUser);
   });
 
+  it('should be able to create a new event', async () => {
+    const result = await createEventUseCase.execute({
+      ...mockEvent,
+      userUuid: mockUser.uuid,
+    });
+    expect(result.isRight()).toBeTruthy();
+    expect(result.value).toBeUndefined();
+  });
+
   it('should not create event without name', async () => {
     const result = await createEventUseCase.execute({
       ...mockEvent,
@@ -35,7 +44,7 @@ describe('Create Event Use Case:', () => {
       name: '',
     });
     expect(result.isRight()).toBeFalsy();
-    expect(result.value).toBeUndefined();
+    expect(result.value).toBeInstanceOf(MissingParamError);
   });
 
   it('should not create event without user uuid', async () => {

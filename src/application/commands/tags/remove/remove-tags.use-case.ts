@@ -6,6 +6,7 @@ import {
 } from 'src/domain/dtos/tags/remove-tag.dto';
 import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
 import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
+import { TagNotFoundError } from 'src/domain/errors/tags/tag-not-found.error';
 import { ITagRepository } from 'src/domain/repositories/tags.repository';
 import { IUseCase } from 'src/infra/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
@@ -21,6 +22,10 @@ export class RemoveTagsUseCase
   async execute(input: InputRemoveTagDTO): Promise<OutputRemoveTagDTO> {
     try {
       if (!input.uuid) return left(new MissingParamError('uuid'));
+
+      const tag = await this.tagsRepository.findByUuid(input.uuid);
+
+      if (!tag) return left(new TagNotFoundError());
 
       await this.tagsRepository.remove(input.uuid);
       return right(undefined);
