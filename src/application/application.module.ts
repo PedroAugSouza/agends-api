@@ -4,6 +4,7 @@ import { PrismaModule } from 'src/infra/prisma/prisma.module';
 import { PrismaRepositoriesModule } from 'src/infra/repositories/prisma-repositories.module';
 import { AuthModule } from './auth/auth.module';
 import { QueriesModule } from './queries/queries.module';
+import { GatewaysModule } from './gateways/gateways.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { QueriesModule } from './queries/queries.module';
     PrismaRepositoriesModule,
     AuthModule,
     QueriesModule,
+    GatewaysModule,
   ],
 })
 export class AppModule {}

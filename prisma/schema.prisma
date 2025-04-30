@@ -21,6 +21,7 @@ model User {
   AssignedEventToUsers AssignedEventToUsers[]
   Tag                  Tag[]
   Habit                Habit[]
+  NotificationsToUsers NotificationsToUsers[]
 }
 
 enum UserStatus {
@@ -98,4 +99,32 @@ model Day {
   id              Int
   day             String
   DaysInWeekHabit dayHabit[]
+}
+
+model Notification {
+  uuid String @id @default(uuid())
+
+  message              String
+  NotificationType     NotificationType
+  isRead               Boolean                @default(false)
+  createdAt            DateTime
+  NotificationsToUsers NotificationsToUsers[]
+}
+
+model NotificationsToUsers {
+  uuid String @id @default(uuid())
+
+  isSender         Boolean @default(false)
+  notificationUuid String
+  userUuid         String
+
+  createdAt DateTime
+
+  notification Notification @relation(fields: [notificationUuid], references: [uuid])
+  user         User         @relation(fields: [userUuid], references: [uuid])
+}
+
+enum NotificationType {
+  ASSIGN_USER_TO_EVENT
+  REMOVE_ASSIGNMENT_OF_USER
 }
