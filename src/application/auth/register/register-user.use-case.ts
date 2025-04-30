@@ -3,15 +3,15 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputRegisterUserDTO,
   OutputRegisterUserDTO,
-} from 'src/domain/dtos/users/register-user.dto';
+} from 'src/application/dtos/users/register-user.dto';
 import { User } from 'src/domain/entities/user/user.entity';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { UserAlreadyExistError } from 'src/domain/errors/users/user-already-exists.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { UserAlreadyExistError } from 'src/infra/errors/users/user-already-exists.error';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { UserStatusValueObject } from 'src/domain/value-objects/user-status.value-object';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
 
 @Injectable()

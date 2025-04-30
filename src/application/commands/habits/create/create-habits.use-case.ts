@@ -3,15 +3,15 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputCreateHabitDTO,
   OutputCreateHabitDTO,
-} from 'src/domain/dtos/habits/create-habit.dto';
+} from 'src/application/dtos/habits/create-habit.dto';
 import { Habit } from 'src/domain/entities/habit/habit.entity';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
 import { IHabitRepository } from 'src/domain/repositories/habit.repository';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
 
 @Injectable()

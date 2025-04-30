@@ -4,13 +4,13 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputAuthenticateUserDTO,
   OutputAuthenticateUserDTO,
-} from 'src/domain/dtos/users/authenticate-user.dto';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+} from 'src/application/dtos/users/authenticate-user.dto';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
 
 @Injectable()

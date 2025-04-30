@@ -3,7 +3,7 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputGetHabitByUuidDTO,
   OutputGetHabitByUuidDTO,
-} from 'src/domain/dtos/habits/get-habit-by-uuid.dto';
+} from 'src/application/dtos/habits/get-habit-by-uuid.dto';
 import { IHabitRepository } from 'src/domain/repositories/habit.repository';
 
 @Injectable()

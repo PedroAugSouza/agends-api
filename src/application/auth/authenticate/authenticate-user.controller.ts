@@ -7,12 +7,12 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { AuthenticateUserUseCase } from './authenticate-user.use-case';
-import { IError } from 'src/infra/error/error';
-import { InputAuthenticateUserDTO } from 'src/domain/dtos/users/authenticate-user.dto';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { IError } from 'src/domain/error/error';
+import { InputAuthenticateUserDTO } from 'src/application/dtos/users/authenticate-user.dto';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
 
 @Controller('login')
 @ApiTags('Authenticate User Controller')

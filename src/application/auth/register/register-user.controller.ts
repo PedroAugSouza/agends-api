@@ -7,12 +7,12 @@ import {
 } from '@nestjs/common';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 import { RegisterUserUseCase } from './register-user.use-case';
-import { InputRegisterUserDTO } from 'src/domain/dtos/users/register-user.dto';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UserAlreadyExistError } from 'src/domain/errors/users/user-already-exists.error';
-import { IError } from 'src/infra/error/error';
+import { InputRegisterUserDTO } from 'src/application/dtos/users/register-user.dto';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UserAlreadyExistError } from 'src/infra/errors/users/user-already-exists.error';
+import { IError } from 'src/domain/error/error';
 
 @Controller('register')
 @ApiTags('Register User Controller')

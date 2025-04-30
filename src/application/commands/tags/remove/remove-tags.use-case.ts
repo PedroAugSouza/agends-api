@@ -3,12 +3,12 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputRemoveTagDTO,
   OutputRemoveTagDTO,
-} from 'src/domain/dtos/tags/remove-tag.dto';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { TagNotFoundError } from 'src/domain/errors/tags/tag-not-found.error';
+} from 'src/application/dtos/tags/remove-tag.dto';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { TagNotFoundError } from 'src/infra/errors/tags/tag-not-found.error';
 import { ITagRepository } from 'src/domain/repositories/tags.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
 
 @Injectable()

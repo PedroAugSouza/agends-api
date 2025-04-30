@@ -3,14 +3,14 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputRemoveAssignmentDTO,
   OutputRemoveAssignmentDTO,
-} from 'src/domain/dtos/events/remove-assignment.dto';
-import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+} from 'src/application/dtos/events/remove-assignment.dto';
+import { EventNotFoundError } from 'src/infra/errors/events/event-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
 
 @Injectable()

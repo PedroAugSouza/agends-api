@@ -2,7 +2,7 @@ import { Left, Right } from 'src/infra/utils/either/either';
 import { Entity } from '../entity';
 import { EventProps } from './event.contact';
 
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
 
 export class Event extends Entity<EventProps> {
   constructor(props: EventProps, uuid?: string) {

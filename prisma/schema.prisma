@@ -103,21 +103,19 @@ model Day {
 
 model Notification {
   uuid String @id @default(uuid())
-
   message              String
   NotificationType     NotificationType
   isRead               Boolean                @default(false)
   createdAt            DateTime
+
   NotificationsToUsers NotificationsToUsers[]
 }
 
 model NotificationsToUsers {
   uuid String @id @default(uuid())
-
   isSender         Boolean @default(false)
   notificationUuid String
   userUuid         String
-
   createdAt DateTime
 
   notification Notification @relation(fields: [notificationUuid], references: [uuid])

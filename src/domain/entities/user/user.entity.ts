@@ -1,4 +1,4 @@
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
 import { Entity } from '../entity';
 import { UserProps } from './user.contact';
 import { Left, Right } from 'src/infra/utils/either/either';

@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import {
   InputGetAllHabitsDTO,
   OutputGetAllHabitsDTO,
-} from 'src/domain/dtos/habits/get-all-habits.dto';
+} from 'src/application/dtos/habits/get-all-habits.dto';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 
 @Injectable()
 export class GetAllHabitsService

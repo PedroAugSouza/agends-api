@@ -3,14 +3,14 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputUpdateEventDTO,
   OutputUpdateEventDTO,
-} from 'src/domain/dtos/events/update-event.dto';
+} from 'src/application/dtos/events/update-event.dto';
 import { Event } from 'src/domain/entities/event/event.entity';
-import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
+import { EventNotFoundError } from 'src/infra/errors/events/event-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
 
 @Injectable()

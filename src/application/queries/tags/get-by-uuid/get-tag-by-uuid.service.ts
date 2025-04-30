@@ -3,9 +3,9 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputGetTagByUuidDTO,
   OuputGetTagByUuidDTO,
-} from 'src/domain/dtos/tags/get-by-uuid.dto';
+} from 'src/application/dtos/tags/get-by-uuid.dto';
 import { ITagRepository } from 'src/domain/repositories/tags.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 
 @Injectable()
 export class GetTagByUuidService

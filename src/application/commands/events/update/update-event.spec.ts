@@ -5,8 +5,8 @@ import { getEventDummy } from '__test__dummy/mock/mock.entities';
 import { Test, TestingModule } from '@nestjs/testing';
 import { InMemoryRepositoriesModule } from 'src/infra/repositories/in-memory-repositories.module';
 import { DiRepository } from 'src/domain/constants/di.constants';
-import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { EventNotFoundError } from 'src/infra/errors/events/event-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
 
 describe('Update Event Use Case: ', () => {
   let updateEventUseCase: UpdateEventUseCase;

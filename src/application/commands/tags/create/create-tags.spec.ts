@@ -6,8 +6,8 @@ import { CreateTagsUseCase } from './create-tags.use-case';
 import { getTagDummy, getUserDummy } from '__test__dummy/mock/mock.entities';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
 
 describe('Create Tag Use Case: ', () => {
   let createTagsUseCase: CreateTagsUseCase;

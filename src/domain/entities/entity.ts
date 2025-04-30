@@ -1,7 +1,7 @@
 import { randomUUID } from 'crypto';
 import { EntityProps } from './props';
 import { Either } from 'src/infra/utils/either/either';
-import { ParamInvalidError } from '../errors/shared/param-invalid.error';
+import { ParamInvalidError } from '../../infra/errors/shared/param-invalid.error';
 
 export abstract class Entity<T extends EntityProps> {
   protected uuid: string;

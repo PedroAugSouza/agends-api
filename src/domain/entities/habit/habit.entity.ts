@@ -1,7 +1,7 @@
 import { Left, Right } from 'src/infra/utils/either/either';
 import { Entity } from '../entity';
 import { HabitProps } from './habit.contact';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
 
 export class Habit extends Entity<HabitProps> {
   private hasDuplicate(array: number[]) {

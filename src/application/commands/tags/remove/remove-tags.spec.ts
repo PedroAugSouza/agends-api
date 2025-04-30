@@ -6,8 +6,8 @@ import { RemoveTagsUseCase } from './remove-tags.use-case';
 import { ITagRepository } from 'src/domain/repositories/tags.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { getTagDummy } from '__test__dummy/mock/mock.entities';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { TagNotFoundError } from 'src/domain/errors/tags/tag-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { TagNotFoundError } from 'src/infra/errors/tags/tag-not-found.error';
 
 describe('Remove Tag Use Case: ', () => {
   let removeTagUseCase: RemoveTagsUseCase;

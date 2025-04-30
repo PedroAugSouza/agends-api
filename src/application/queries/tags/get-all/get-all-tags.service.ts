@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import {
   InputGetAllTagsDTO,
   OutputGetAllTagsDTO,
-} from 'src/domain/dtos/tags/get-all-tags.dto';
+} from 'src/application/dtos/tags/get-all-tags.dto';
 import { PrismaService } from 'src/infra/prisma/prisma.service';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 
 @Injectable()
 export class GetAllTagsService

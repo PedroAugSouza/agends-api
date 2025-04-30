@@ -5,8 +5,8 @@ import { InMemoryRepositoriesModule } from 'src/infra/repositories/in-memory-rep
 import { getUserDummy } from '__test__dummy/mock/mock.entities';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
-import { UserAlreadyExistError } from 'src/domain/errors/users/user-already-exists.error';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
+import { UserAlreadyExistError } from 'src/infra/errors/users/user-already-exists.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
 
 describe('Register User Use Case: ', () => {
   let registerUserUseCase: RegisterUserUseCase;

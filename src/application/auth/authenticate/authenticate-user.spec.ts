@@ -5,9 +5,9 @@ import { getUserDummy } from '__test__dummy/mock/mock.entities';
 import { AuthenticateUserUseCase } from 'src/application/auth/authenticate/authenticate-user.use-case';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { SECRET } from 'src/domain/constants/jwt-constants';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { InMemoryRepositoriesModule } from 'src/infra/repositories/in-memory-repositories.module';
 

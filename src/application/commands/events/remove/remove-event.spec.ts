@@ -5,8 +5,8 @@ import { InMemoryRepositoriesModule } from 'src/infra/repositories/in-memory-rep
 import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { getEventDummy } from '__test__dummy/mock/mock.entities';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { EventNotFoundError } from 'src/domain/errors/events/event-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { EventNotFoundError } from 'src/infra/errors/events/event-not-found.error';
 
 describe('Remove Event Use Case: ', () => {
   let removeEventUseCase: RemoveEventUseCase;

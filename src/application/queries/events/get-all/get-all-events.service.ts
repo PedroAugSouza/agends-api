@@ -3,9 +3,9 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputGetAllEventsDTO,
   OutputGetAllEventsDTO,
-} from 'src/domain/dtos/events/get-all-events.dto';
+} from 'src/application/dtos/events/get-all-events.dto';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 
 @Injectable()
 export class GetAllEventsService

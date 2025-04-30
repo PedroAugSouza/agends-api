@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { GetAllEventsController } from './get-all/get-all-events.controller';
 import { GetAllEventsService } from './get-all/get-all-events.service';
+import { GetAllEventsController } from 'src/ui/controllers/events/get-all-events.controller';
 
 @Module({
   controllers: [GetAllEventsController],

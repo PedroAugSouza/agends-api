@@ -3,15 +3,15 @@ import { DiRepository } from 'src/domain/constants/di.constants';
 import {
   InputCreateEventDTO,
   OutputCreateEventDTO,
-} from 'src/domain/dtos/events/create-event.dto';
+} from 'src/application/dtos/events/create-event.dto';
 import { Event } from 'src/domain/entities/event/event.entity';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
-import { UnexpectedError } from 'src/domain/errors/shared/unexpected.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
+import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
 import { IUserRepository } from 'src/domain/repositories/user.repository';
-import { IUseCase } from 'src/infra/use-case/shared/use-case';
+import { IUseCase } from 'src/domain/use-case/shared/use-case';
 import { left, right } from 'src/infra/utils/either/either';
 
 @Injectable()

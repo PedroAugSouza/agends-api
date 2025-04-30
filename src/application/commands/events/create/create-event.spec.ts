@@ -6,9 +6,9 @@ import { IUserRepository } from 'src/domain/repositories/user.repository';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { getEventDummy, getUserDummy } from '__test__dummy/mock/mock.entities';
 import { setHours } from 'date-fns';
-import { MissingParamError } from 'src/domain/errors/shared/missing-param.error';
-import { UserNotfoundError } from 'src/domain/errors/users/user-not-found.error';
-import { ParamInvalidError } from 'src/domain/errors/shared/param-invalid.error';
+import { MissingParamError } from 'src/infra/errors/shared/missing-param.error';
+import { UserNotfoundError } from 'src/infra/errors/users/user-not-found.error';
+import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
 
 describe('Create Event Use Case:', () => {
   let createEventUseCase: CreateEventUseCase;
