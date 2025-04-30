@@ -16,8 +16,8 @@ export class NotificationsToUsers {
   notificationUuid: string;
 
   @ApiProperty({ type: PickType(UserProps, ['name', 'email', 'uuid']) })
-  user: UserProps;
-  
+  user?: UserProps;
+
   @ApiProperty({ type: OmitType(NotificationProps, ['NotificationsToUsers']) })
-  notification: NotificationProps;
+  notification?: NotificationProps;
 }

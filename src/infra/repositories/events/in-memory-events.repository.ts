@@ -78,7 +78,7 @@ export class InMemoryEventsRepository implements IEventRepository {
     const events = Array.from(this.events.values());
 
     const result = eventsAssigned.map((assignee) => {
-      return events.filter((event) => event.uuid === assignee.userUuid)[0];
+      return events.filter((event) => event.uuid === assignee.eventUuid)[0];
     });
 
     return result ?? null;
