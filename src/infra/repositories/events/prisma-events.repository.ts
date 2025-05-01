@@ -47,14 +47,21 @@ export class PrismaEventsRepository implements IEventRepository {
     });
   }
   async assign(
-    userUuid: string,
+    userEmail: string,
     eventUuid: string,
     isOwner: boolean = false,
   ): Promise<void> {
+    const alreadyExistsUser = await this.prisma.user.findFirst({
+      where: {
+        email: userEmail,
+      },
+    });
+
+    if (!alreadyExistsUser) return;
     await this.prisma.assignedEventToUsers.create({
       data: {
         eventUuid,
-        userUuid,
+        userUuid: alreadyExistsUser.uuid,
         isOwner,
         createdAt: new Date(),
         updatedAt: new Date(),

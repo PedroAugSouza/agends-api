@@ -1,8 +1,7 @@
 import { NotificationsToUsers } from 'src/domain/value-objects/notifications-to-users.value-object';
 import { EntityProps } from '../props';
-
 import { ApiProperty } from '@nestjs/swagger';
-import { $Enums } from '@prisma/client';
+import { NotificationType } from '@prisma/client';
 
 export class NotificationProps extends EntityProps {
   @ApiProperty()
@@ -15,8 +14,8 @@ export class NotificationProps extends EntityProps {
   createdAt: Date;
 
   @ApiProperty({ enum: ['REMOVE_ASSIGNMENT_OF_USER', 'ASSIGN_USER_TO_EVENT'] })
-  NotificationType: $Enums.NotificationType;
+  NotificationType: NotificationType;
 
   @ApiProperty({ type: NotificationsToUsers, isArray: true })
-  NotificationsToUsers?: NotificationsToUsers[];
+  NotificationsToUsers?: Pick<NotificationsToUsers, 'isSender' | 'userUuid'>[];
 }

@@ -12,7 +12,7 @@ export class PrismaNotificaitonsRepository implements INotificationsRepository {
       data: {
         createdAt: new Date(),
         message: input.message,
-        NotificationType: input.notificationType,
+        NotificationType: input.NotificationType,
         isRead: false,
         NotificationsToUsers: {
           createMany: {
@@ -51,7 +51,7 @@ export class PrismaNotificaitonsRepository implements INotificationsRepository {
       },
     });
 
-    return notifications ?? null;
+    return (notifications as NotificationProps[]) ?? null;
   }
   async markAsRead(uuid: string): Promise<void> {
     await this.prisma.notification.update({

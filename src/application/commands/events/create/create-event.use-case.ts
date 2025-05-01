@@ -36,10 +36,10 @@ export class CreateEventUseCase
 
       if (!input.tagUuid) return left(new MissingParamError('Tag Uuid'));
 
-      if (!input.userUuid) return left(new MissingParamError('User Uuid'));
+      if (!input.userEmail) return left(new MissingParamError('User Uuid'));
 
-      const alreadyExistsUser = await this.usersRepository.findByUuid(
-        input.userUuid,
+      const alreadyExistsUser = await this.usersRepository.findByEmail(
+        input.userEmail,
       );
 
       if (!alreadyExistsUser) return left(new UserNotfoundError());
@@ -56,23 +56,10 @@ export class CreateEventUseCase
       await this.eventsRepository.save(event.result.value);
 
       await this.eventsRepository.assign(
-        input.userUuid,
+        input.userEmail,
         event.result.value.uuid,
         true,
       );
-
-      if (input.assignedUsers?.length) {
-        await this.eventsRepository.assignMany(
-          input.assignedUsers.map((assignedUser) => {
-            if (event.result.value instanceof ParamInvalidError) return;
-
-            return {
-              eventUuid: event.result.value.uuid,
-              userEmail: assignedUser,
-            };
-          }),
-        );
-      }
 
       return right(undefined);
     } catch (error) {

@@ -5,7 +5,7 @@ export interface IEventRepository {
   remove(uuid: string): void | Promise<void>;
   update(event: EventProps): void | Promise<void>;
   assign(
-    userUuid: string,
+    userEmail: string,
     eventUuid: string,
     isOwner?: boolean,
   ): void | Promise<void>;

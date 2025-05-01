@@ -27,10 +27,7 @@ export class InputCreateEventDTO {
   tagUuid: string;
 
   @ApiProperty()
-  userUuid: string;
-
-  @ApiProperty({ nullable: true })
-  assignedUsers?: string[];
+  userEmail: string;
 }
 
 export type OutputCreateEventDTO = Either<
