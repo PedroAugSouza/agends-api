@@ -14,6 +14,7 @@ export class InMemoryNotificationsRepository
   send(input: NotificationProps): void {
     this.notificaitonsMap.set(input.uuid, input);
   }
+
   findAll(userUuid: string): NotificationProps[] | null {
     const noificationsToUsers = Array.from(
       this.notificationsToUsersMap.values(),
@@ -29,6 +30,14 @@ export class InMemoryNotificationsRepository
     });
 
     return result ?? null;
+  }
+
+  findByUuid(uuid: string): NotificationProps | null {
+    const notification = Array.from(this.notificaitonsMap.values()).filter(
+      (notification) => notification.uuid === uuid,
+    )[0];
+
+    return notification ?? null;
   }
   markAsRead(uuid: string): void {
     const notification = Array.from(this.notificaitonsMap.values()).filter(

@@ -17,5 +17,8 @@ export class NotificationProps extends EntityProps {
   NotificationType: NotificationType;
 
   @ApiProperty({ type: NotificationsToUsers, isArray: true })
-  NotificationsToUsers?: Pick<NotificationsToUsers, 'isSender' | 'userUuid'>[];
+  NotificationsToUsers?: Omit<
+    NotificationsToUsers,
+    'Notifications' | 'notificationUuid'
+  >[];
 }

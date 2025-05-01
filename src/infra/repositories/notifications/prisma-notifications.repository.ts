@@ -35,6 +35,7 @@ export class PrismaNotificaitonsRepository implements INotificationsRepository {
         NotificationsToUsers: {
           every: {
             userUuid,
+            isSender: false,
           },
         },
       },
@@ -46,6 +47,7 @@ export class PrismaNotificaitonsRepository implements INotificationsRepository {
             notificationUuid: true,
             userUuid: true,
             uuid: true,
+            user: true,
           },
         },
       },
@@ -53,6 +55,16 @@ export class PrismaNotificaitonsRepository implements INotificationsRepository {
 
     return (notifications as NotificationProps[]) ?? null;
   }
+
+  async findByUuid(uuid: string): Promise<NotificationProps | null> {
+    const notification = await this.prisma.notification.findFirst({
+      where: {
+        uuid,
+      },
+    });
+    return notification ?? null;
+  }
+
   async markAsRead(uuid: string): Promise<void> {
     await this.prisma.notification.update({
       where: {

@@ -8,6 +8,7 @@ import {
   WebSocketGateway,
   WebSocketServer,
 } from '@nestjs/websockets';
+import { randomUUID } from 'crypto';
 import { Server, Socket } from 'socket.io';
 import { InputAssignUserDTO } from 'src/application/dtos/events/assign-user.dto';
 import { DiRepository } from 'src/domain/constants/di.constants';
@@ -93,10 +94,12 @@ export class AssignUsersGateway implements OnGatewayConnection {
             {
               isSender: true,
               userUuid: sender.uuid,
+              uuid: randomUUID(),
             },
             {
               isSender: false,
               userUuid: recipient.uuid,
+              uuid: randomUUID(),
             },
           ],
         });
