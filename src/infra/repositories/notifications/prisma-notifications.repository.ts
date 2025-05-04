@@ -40,7 +40,7 @@ export class PrismaNotificaitonsRepository implements INotificationsRepository {
         },
       },
       orderBy: {
-        createdAt: 'asc',
+        createdAt: 'desc',
       },
       include: {
         NotificationsToUsers: {
