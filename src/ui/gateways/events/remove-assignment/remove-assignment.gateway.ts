@@ -7,7 +7,7 @@ import {
 } from '@nestjs/websockets';
 import { randomUUID } from 'crypto';
 import { Socket } from 'socket.io';
-import { InputAssignUserDTO } from 'src/application/dtos/events/assign-user.dto';
+import { InputRemoveAssignmentDTO } from 'src/application/dtos/events/remove-assignment.dto';
 import { DiRepository } from 'src/domain/constants/di.constants';
 import { Notification } from 'src/domain/entities/notification/notification.entity';
 import { IEventRepository } from 'src/domain/repositories/event.repository';
@@ -20,7 +20,7 @@ import { ParamInvalidError } from 'src/infra/errors/shared/param-invalid.error';
 import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
 import { OnSocket } from 'src/infra/socket/on-socket';
 
-export class AssignUsersGateway extends OnSocket {
+export class RemoveAssignmentGateway extends OnSocket {
   constructor(
     @Inject(DiRepository.NOTIFICATIONS)
     protected readonly notificationsRepository: INotificationsRepository,
@@ -33,51 +33,46 @@ export class AssignUsersGateway extends OnSocket {
     super(jwtService);
   }
 
-  @SubscribeMessage('assign-users')
+  @SubscribeMessage('remove-assignment')
   handle(
-    @MessageBody() input: InputAssignUserDTO[],
+    @MessageBody() input: InputRemoveAssignmentDTO,
     @ConnectedSocket() client: Socket,
   ) {
-    try {
-      if (!input.length) {
-        client.emit('error', new ParamInvalidError('Body is not provided'));
-        return;
-      }
-      input.map(async (data) => {
-        if (!data.eventUuid) {
+    const handle = async () => {
+      try {
+        if (!input.eventUuid) {
           client.emit('error', new MissingParamError('Event'));
           return;
         }
-        if (!data.ownerEmail) {
+        if (!input.ownerEmail) {
           client.emit('error', new MissingParamError('owner'));
           return;
         }
-        if (!data.userEmail) {
+        if (!input.userEmail) {
           client.emit('error', new MissingParamError('user'));
           return;
         }
-
-        const event = await this.eventsRepository.findByUuid(data.eventUuid);
+        const event = await this.eventsRepository.findByUuid(input.eventUuid);
 
         if (!event) {
           client.emit('error', new EventNotFoundError());
         }
 
         const recipient = await this.usersRepository.findByEmail(
-          data.userEmail,
+          input.userEmail,
         );
-        const sender = await this.usersRepository.findByEmail(data.ownerEmail);
 
-        await this.eventsRepository.assign(
-          data.userEmail,
-          data.eventUuid,
-          false,
+        const sender = await this.usersRepository.findByEmail(input.ownerEmail);
+
+        await this.eventsRepository.removeAssignment(
+          input.userEmail,
+          input.eventUuid,
         );
 
         const notification = new Notification({
-          NotificationType: NotificationType.ASSIGN_USER_TO_EVENT,
+          NotificationType: NotificationType.REMOVE_ASSIGNMENT_OF_USER,
           isRead: false,
-          message: `You have been assigned to a new event`,
+          message: `You have been removed of an event`,
           createdAt: new Date(),
           NotificationsToUsers: [
             {
@@ -98,17 +93,17 @@ export class AssignUsersGateway extends OnSocket {
         await this.notificationsRepository.send({
           ...notification.result.value,
         });
-
-        client
-          .to(`user:${data.userEmail}`)
-          .emit(
-            'notification',
-            JSON.stringify(notification.result.value.message),
-          );
-        return;
-      });
-    } catch (error) {
-      this.logger.error(JSON.stringify(new UnexpectedError(error)));
-    }
+        client.to(`user:${input.userEmail}`).emit(
+          'notification',
+          JSON.stringify({
+            type: notification.result.value.NotificationType,
+            message: notification.result.value.message,
+          }),
+        );
+      } catch (error) {
+        this.logger.error(JSON.stringify(new UnexpectedError(error)));
+      }
+    };
+    handle();
   }
 }

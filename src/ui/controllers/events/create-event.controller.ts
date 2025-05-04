@@ -39,6 +39,17 @@ export class CreateEventController {
   @ApiResponse({
     status: 201,
     description: 'Event created',
+    content: {
+      'application/json': {
+        schema: {
+          properties: {
+            uuid: {
+              type: 'string',
+            },
+          },
+        },
+      },
+    },
   })
   async handle(@Body() body: InputCreateEventDTO) {
     const result = await this.createEventUseCase.execute({ ...body });

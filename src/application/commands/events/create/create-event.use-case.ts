@@ -61,7 +61,9 @@ export class CreateEventUseCase
         true,
       );
 
-      return right(undefined);
+      return right({
+        uuid: event.result.value.uuid,
+      });
     } catch (error) {
       return left(new UnexpectedError(error));
     }

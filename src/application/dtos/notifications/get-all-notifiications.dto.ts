@@ -7,6 +7,11 @@ export class InputGetAllNotificationDTO {
   userUuid: string;
 }
 
+class NotificationsToUsersDTO extends PickType(NotificationsToUsers, [
+  'isSender',
+  'user',
+]) {}
+
 export class OutputGetAllNotificationsDTO {
   @ApiProperty()
   uuid: string;
@@ -23,6 +28,9 @@ export class OutputGetAllNotificationsDTO {
   @ApiProperty()
   createdAt: Date;
 
-  @ApiProperty({ type: PickType(NotificationsToUsers, ['user', 'isSender']) })
+  @ApiProperty({
+    type: NotificationsToUsersDTO,
+    isArray: true,
+  })
   NotificationsToUSers: Pick<NotificationsToUsers, 'isSender' | 'user'>[];
 }

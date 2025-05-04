@@ -36,5 +36,7 @@ export type OutputCreateEventDTO = Either<
   | InvalidTimeError
   | ParamInvalidError
   | UserNotfoundError,
-  void
+  {
+    uuid: string;
+  }
 >;

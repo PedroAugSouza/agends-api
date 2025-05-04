@@ -33,11 +33,14 @@ export class PrismaNotificaitonsRepository implements INotificationsRepository {
     const notifications = await this.prisma.notification.findMany({
       where: {
         NotificationsToUsers: {
-          every: {
+          some: {
             userUuid,
             isSender: false,
           },
         },
+      },
+      orderBy: {
+        createdAt: 'asc',
       },
       include: {
         NotificationsToUsers: {

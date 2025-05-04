@@ -131,6 +131,7 @@ export class PrismaEventsRepository implements IEventRepository {
       });
       if (!alreadyExistsUser) return;
       await this.prisma.assignedEventToUsers.createMany({
+        skipDuplicates: true,
         data: input.map((item) => ({
           createdAt: new Date(),
           updatedAt: new Date(),

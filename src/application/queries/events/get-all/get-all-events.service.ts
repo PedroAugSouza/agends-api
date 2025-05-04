@@ -21,7 +21,8 @@ export class GetAllEventsService
 
     const result = events.filter(
       (event) =>
-        event.date.getMonth() === input.currentMonth.getMonth() &&
+        event.date.getMonth() >= input.currentMonth.getMonth() - 1 &&
+        event.date.getMonth() <= input.currentMonth.getMonth() + 1 &&
         event.date.getFullYear() === input.currentMonth.getFullYear(),
     );
 
