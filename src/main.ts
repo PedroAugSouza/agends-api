@@ -10,11 +10,12 @@ import yaml from 'js-yaml';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter(),
+    new FastifyAdapter({ trustProxy: true }),
     {
       cors: {
         methods: '*',
       },
+      rawBody: true,
     },
   );
 
@@ -33,7 +34,7 @@ async function bootstrap() {
 
   // SwaggerModule.setup('api', app, documentFactory);
 
-  await app.listen({ port: Number(process.env.PORT) ?? 3001 });
+  await app.listen({ port: Number(process.env.PORT) ?? 3001, host: '0.0.0.0' });
 
   app.getHttpAdapter().getInstance();
 }
