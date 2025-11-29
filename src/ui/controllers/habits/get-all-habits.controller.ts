@@ -12,7 +12,7 @@ import { GetAllHabitsService } from 'src/application/queries/habits/get-all/get-
 export class GetAllHabitsController {
   constructor(private readonly getAllHabitsService: GetAllHabitsService) {}
 
-  @Get('/:userUuid')
+  @Get('/user/:userUuid')
   @ApiResponse({
     status: '4XX',
     type: IError,

@@ -13,7 +13,7 @@ import { GetHabitByUuidService } from 'src/application/queries/habits/get-by-uui
 export class GetHabitByUuidController {
   constructor(private readonly getHabitByUuidService: GetHabitByUuidService) {}
 
-  @Get('/:uuid')
+  @Get('/by/:uuid')
   @ApiResponse({
     status: '4XX',
     type: IError,
