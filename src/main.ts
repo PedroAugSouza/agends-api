@@ -30,7 +30,7 @@ export async function createApp(): Promise<NestFastifyApplication> {
 
   const document = SwaggerModule.createDocument(app as any, config);
 
-  app.getHttpAdapter().get('doc', (req, res) => {
+  app.getHttpAdapter().get('/doc', (req, res) => {
     res.type('yaml');
     res.send(yaml.dump(document));
   });
