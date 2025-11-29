@@ -19,7 +19,7 @@
     "studio": "prisma studio"
   },
   "dependencies": {
-    "@fastify/static": "^8.3.0",
+    "@fastify/static": "^5.0.2",
     "@nestjs/common": "^10.0.0",
     "@nestjs/core": "^10.0.0",
     "@nestjs/jwt": "^11.0.0",
