@@ -1,11 +1,19 @@
 import { NestFactory } from '@nestjs/core';
+import {
+  FastifyAdapter,
+  NestFastifyApplication,
+} from '@nestjs/platform-fastify';
 import { AppModule } from './application/application.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, {
-    cors: true,
-  });
+  const app = await NestFactory.create<NestFastifyApplication>(
+    AppModule,
+    new FastifyAdapter(),
+    {
+      cors: true,
+    },
+  );
 
   const config = new DocumentBuilder()
     .setTitle('Example title')
@@ -17,6 +25,6 @@ async function bootstrap() {
 
   SwaggerModule.setup('api', app, documentFactory);
 
-  await app.listen(process.env.PORT ?? 3000);
+  await app.listen({ port: Number(process.env.PORT) ?? 3000, host: '0.0.0.0' });
 }
 bootstrap();
