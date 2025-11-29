@@ -12,7 +12,9 @@ async function bootstrap() {
     AppModule,
     new FastifyAdapter(),
     {
-      cors: true,
+      cors: {
+        methods: '*',
+      },
     },
   );
 
