@@ -6,13 +6,12 @@ import {
 import { AppModule } from './application/application.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-export async function createApp(): Promise<NestFastifyApplication> {
+async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
     new FastifyAdapter(),
     {
       cors: true,
-      rawBody: true,
     },
   );
 
@@ -26,21 +25,8 @@ export async function createApp(): Promise<NestFastifyApplication> {
 
   SwaggerModule.setup('api', app, documentFactory);
 
-  await app.init();
-  return app;
-}
+  await app.listen({ port: Number(process.env.PORT) ?? 3000 });
 
-async function bootstrap() {
-  const app = await createApp();
-
-  if (!process.env.VERCEL) {
-    await app.listen({
-      port: Number(process.env.PORT) || 3000,
-      host: '0.0.0.0',
-    });
-  }
+  app.getHttpAdapter().getInstance();
 }
-
-if (require.main === module) {
-  void bootstrap();
-}
+bootstrap();
