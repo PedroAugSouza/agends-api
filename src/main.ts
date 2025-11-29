@@ -12,6 +12,7 @@ async function bootstrap() {
     new FastifyAdapter(),
     {
       cors: true,
+      rawBody: true,
     },
   );
 
