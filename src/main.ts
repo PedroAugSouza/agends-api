@@ -8,16 +8,18 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import yaml from 'js-yaml';
 
 async function bootstrap() {
-  const app = await NestFactory.create<NestFastifyApplication>(
+  const fastifyAdapter = new FastifyAdapter({ trustProxy: true }) as any;
+
+  const app = (await NestFactory.create(
     AppModule,
-    new FastifyAdapter({ trustProxy: true }),
+    fastifyAdapter,
     {
       cors: {
         methods: '*',
       },
       rawBody: true,
     },
-  );
+  )) as NestFastifyApplication;
 
   const config = new DocumentBuilder()
     .setTitle('Example title')
@@ -25,17 +27,16 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
 
-  const document = SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app as any, config);
 
   app.getHttpAdapter().get('doc', (req, res) => {
     res.type('yaml');
     res.send(yaml.dump(document));
   });
 
-  // SwaggerModule.setup('api', app, documentFactory);
-
-  await app.listen({ port: Number(process.env.PORT) ?? 3001, host: '0.0.0.0' });
-
-  app.getHttpAdapter().getInstance();
+  await app.listen({
+    port: Number(process.env.PORT) ?? 3001,
+    host: '0.0.0.0',
+  });
 }
 bootstrap();
