@@ -9,7 +9,7 @@ import { Server, Socket } from 'socket.io';
 import { UnexpectedError } from 'src/infra/errors/shared/unexpected.error';
 import { AuthGuard } from 'src/ui/auth/auth.guard';
 
-@WebSocketGateway(80, {
+@WebSocketGateway(8002, {
   cors: {
     origin: 'http://localhost:3000',
     credentials: true,

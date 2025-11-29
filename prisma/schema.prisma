@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL_PRISMA_DATABASE_URL")
 }
 
 model User {
@@ -102,21 +102,21 @@ model Day {
 }
 
 model Notification {
-  uuid String @id @default(uuid())
-  message              String
-  NotificationType     NotificationType
-  isRead               Boolean                @default(false)
-  createdAt            DateTime
+  uuid             String           @id @default(uuid())
+  message          String
+  NotificationType NotificationType
+  isRead           Boolean          @default(false)
+  createdAt        DateTime
 
   NotificationsToUsers NotificationsToUsers[]
 }
 
 model NotificationsToUsers {
-  uuid String @id @default(uuid())
-  isSender         Boolean @default(false)
+  uuid             String   @id @default(uuid())
+  isSender         Boolean  @default(false)
   notificationUuid String
   userUuid         String
-  createdAt DateTime
+  createdAt        DateTime
 
   notification Notification @relation(fields: [notificationUuid], references: [uuid])
   user         User         @relation(fields: [userUuid], references: [uuid])
