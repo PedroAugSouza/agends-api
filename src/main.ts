@@ -5,6 +5,7 @@ import {
 } from '@nestjs/platform-fastify';
 import { AppModule } from './application/application.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import yaml from 'js-yaml';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
@@ -21,9 +22,14 @@ async function bootstrap() {
     .setVersion('1.0')
     .build();
 
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
+  const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('api', app, documentFactory);
+  app.getHttpAdapter().get('doc', (req, res) => {
+    res.type('yaml');
+    res.send(yaml.dump(document));
+  });
+
+  // SwaggerModule.setup('api', app, documentFactory);
 
   await app.listen({ port: Number(process.env.PORT) ?? 3001 });
 
